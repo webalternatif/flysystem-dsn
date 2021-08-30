@@ -61,6 +61,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.0
+          coverage: xdebug
+          tools: composer:v2
+        env:
+          fail-fast: true
+
       - name: Validate composer.json and composer.lock
         run: composer validate --strict
 
@@ -78,3 +87,5 @@ jobs:
 
       - name: Run Infection
         run: composer infection
+        env:
+          INFECTION_BADGE_API_KEY: ${{ secrets.INFECTION_BADGE_API_KEY }}
