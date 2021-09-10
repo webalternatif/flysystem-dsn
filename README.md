@@ -88,18 +88,20 @@ To run all tests, execute the command:
 $ composer test
 ```
 
-This will run [Psalm][2], [PHPUnit][3] and [Infection][4], but you can run them
-individually like this:
+This will run [Psalm][2], [PHPUnit][3], [Infection][4] and a [PHP-CS-Fixer][5]
+check, but you can run them individually like this:
 
 ```bash
 $ composer psalm
 $ composer phpunit
 $ composer infection
+$ composer cs-check
 ```
 
 [1]: https://flysystem.thephpleague.com
 [2]: https://psalm.dev
 [3]: https://phpunit.de
 [4]: https://infection.github.io
+[5]: https://cs.symfony.com/
 [10]: https://github.com/thephpleague/flysystem-aws-s3-v3
 [11]: https://github.com/webalternatif/flysystem-openstack-swift

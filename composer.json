@@ -30,10 +30,12 @@
         "webalternatif/flysystem-openstack-swift": "To use OpenStackSwiftAdapterFactory"
     },
     "scripts": {
+        "cs-check": "php-cs-fixer fix --dry-run",
+        "cs-fix": "php-cs-fixer fix",
         "infection": "infection --threads=$(nproc)",
         "phpunit": "phpunit",
         "psalm": "psalm --threads=$(nproc) --no-cache",
-        "test": ["@psalm", "@phpunit", "@infection"]
+        "test": ["@psalm", "@phpunit", "@infection", "@cs-check"]
     },
     "autoload": {
         "psr-4": {
