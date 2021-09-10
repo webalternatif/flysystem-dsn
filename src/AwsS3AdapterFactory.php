@@ -16,6 +16,7 @@ class AwsS3AdapterFactory implements FlysystemAdapterFactoryInterface
 {
     public function createAdapter(string $dsn): AwsS3V3Adapter
     {
+        $dsnString = $dsn;
         try {
             $dsn = DsnParser::parse($dsn);
         } catch (NyholmInvalidDsnException $e) {
@@ -24,15 +25,15 @@ class AwsS3AdapterFactory implements FlysystemAdapterFactoryInterface
 
         $matches = [];
         if (1 !== preg_match('/^s3(?:\+(https?))?$/', $dsn->getScheme() ?: '', $matches)) {
-            throw UnsupportedDsnException::create($this, $dsn);
+            throw UnsupportedDsnException::create($this, $dsnString);
         }
 
         if (!is_string($region = $dsn->getParameter('region'))) {
-            throw MissingDsnParameterException::create('region', $dsn);
+            throw MissingDsnParameterException::create('region', $dsnString);
         }
 
         if (!is_string($bucket = $dsn->getParameter('bucket'))) {
-            throw MissingDsnParameterException::create('bucket', $dsn);
+            throw MissingDsnParameterException::create('bucket', $dsnString);
         }
 
         return new AwsS3V3Adapter(

@@ -17,6 +17,7 @@ class OpenStackSwiftAdapterFactory implements FlysystemAdapterFactoryInterface
 {
     public function createAdapter(string $dsn): OpenStackSwiftAdapter
     {
+        $dsnString = $dsn;
         try {
             $dsn = DsnParser::parse($dsn);
         } catch (NyholmInvalidDsnException $e) {
@@ -25,15 +26,15 @@ class OpenStackSwiftAdapterFactory implements FlysystemAdapterFactoryInterface
 
         $matches = [];
         if (1 !== preg_match('/^swift(?:\+(https?))?$/', $dsn->getScheme() ?: '', $matches)) {
-            throw UnsupportedDsnException::create($this, $dsn);
+            throw UnsupportedDsnException::create($this, $dsnString);
         }
 
         if (!is_string($region = $dsn->getParameter('region'))) {
-            throw MissingDsnParameterException::create('region', $dsn);
+            throw MissingDsnParameterException::create('region', $dsnString);
         }
 
         if (!is_string($container = $dsn->getParameter('container'))) {
-            throw MissingDsnParameterException::create('container', $dsn);
+            throw MissingDsnParameterException::create('container', $dsnString);
         }
 
         $userId = $this->getStringParameter($dsn, 'user_id');
@@ -62,7 +63,7 @@ class OpenStackSwiftAdapterFactory implements FlysystemAdapterFactoryInterface
             $options['user']['name'] = $userName;
         } else {
             if (null === $userId) {
-                throw MissingDsnParameterException::create('username or user_id', $dsn);
+                throw MissingDsnParameterException::create('username or user_id', $dsnString);
             }
         }
 

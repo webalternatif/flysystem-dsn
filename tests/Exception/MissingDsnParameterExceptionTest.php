@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Webf\Flysystem\Dsn\Exception;
 
-use Nyholm\Dsn\DsnParser;
 use PHPUnit\Framework\TestCase;
 use Webf\Flysystem\Dsn\Exception\MissingDsnParameterException;
 
@@ -25,10 +24,7 @@ class MissingDsnParameterExceptionTest extends TestCase
         $parameter = 'foo';
         $dsn = 'scheme://username:password@host/path?parameter=value';
 
-        $exception = MissingDsnParameterException::create(
-            $parameter,
-            DsnParser::parse($dsn)
-        );
+        $exception = MissingDsnParameterException::create($parameter, $dsn);
 
         $this->assertStringContainsString($parameter, $exception->getMessage());
         $this->assertStringContainsString($dsn, $exception->getMessage());

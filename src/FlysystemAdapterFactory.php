@@ -22,7 +22,7 @@ class FlysystemAdapterFactory implements FlysystemAdapterFactoryInterface
     public function createAdapter(string $dsn): FilesystemAdapter
     {
         try {
-            $parsedDsn = DsnParser::parse($dsn);
+            DsnParser::parse($dsn);
         } catch (NyholmInvalidDsnException $e) {
             throw new InvalidDsnException($e->getMessage(), previous: $e);
         }
@@ -33,7 +33,7 @@ class FlysystemAdapterFactory implements FlysystemAdapterFactoryInterface
             }
         }
 
-        throw UnsupportedDsnException::create($this, $parsedDsn);
+        throw UnsupportedDsnException::create($this, $dsn);
     }
 
     public function supports(string $dsn): bool

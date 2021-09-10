@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Webf\Flysystem\Dsn\Exception;
 
-use Nyholm\Dsn\DsnParser;
 use PHPUnit\Framework\TestCase;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 use Webf\Flysystem\Dsn\FlysystemAdapterFactory;
@@ -26,10 +25,7 @@ class UnsupportedDsnExceptionTest extends TestCase
         $factory = new FlysystemAdapterFactory([]);
         $dsn = 'scheme://username:password@host/path?parameter=value';
 
-        $exception = UnsupportedDsnException::create(
-            $factory,
-            DsnParser::parse($dsn)
-        );
+        $exception = UnsupportedDsnException::create($factory, $dsn);
 
         $this->assertStringContainsString($factory::class, $exception->getMessage());
         $this->assertStringContainsString($dsn, $exception->getMessage());

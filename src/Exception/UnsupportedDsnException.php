@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Webf\Flysystem\Dsn\Exception;
 
-use Nyholm\Dsn\Configuration\Dsn;
 use Webf\Flysystem\Dsn\FlysystemAdapterFactoryInterface;
 
 class UnsupportedDsnException extends InvalidArgumentException
@@ -16,12 +15,12 @@ class UnsupportedDsnException extends InvalidArgumentException
 
     public static function create(
         FlysystemAdapterFactoryInterface $factory,
-        Dsn $dsn
+        string $dsn
     ): self {
         return new UnsupportedDsnException(sprintf(
             'Factory "%s" does not support DSN "%s".',
             $factory::class,
-            $dsn->__toString()
+            $dsn
         ));
     }
 }
