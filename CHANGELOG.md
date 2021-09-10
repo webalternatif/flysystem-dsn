@@ -1,4 +1,8 @@
-## v0.1.1 (unreleased)
+## v0.2.0 (unreleased)
+
+### 💥 Breaking changes
+
+  * Add `UnableToCreateAdapterException`, possibly thrown by `FlysystemAdapterFactoryInterface::createAdapter()`
 
 ### ✨ New features
 
