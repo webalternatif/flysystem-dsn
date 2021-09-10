@@ -11,6 +11,5 @@
       "branch": "master"
     }
   },
-  "timeout": 100,
   "tmpDir": "var/cache"
 }

@@ -1,6 +1,7 @@
 {
     "name": "webalternatif/flysystem-dsn",
     "description": "A set of factories to build Flysystem adapters from DSN",
+    "type": "library",
     "keywords": ["flysystem", "dsn", "adapter", "filesystem", "storage"],
     "license": "MIT",
     "authors": [
@@ -21,7 +22,6 @@
         "league/flysystem-aws-s3-v3": "^2.1",
         "php-opencloud/openstack": "^3.2",
         "phpunit/phpunit": "^9.5",
-        "psalm/plugin-phpunit": "^0.16.1",
         "vimeo/psalm": "^4.9",
         "webalternatif/flysystem-openstack-swift": "^0.2.0"
     },
