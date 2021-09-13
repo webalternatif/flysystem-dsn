@@ -7,6 +7,7 @@ namespace Webf\Flysystem\Dsn;
 use Aws\S3\S3Client;
 use League\Flysystem\AwsS3V3\AwsS3V3Adapter;
 use Nyholm\Dsn\DsnParser;
+use Nyholm\Dsn\Exception\FunctionsNotAllowedException;
 use Nyholm\Dsn\Exception\InvalidDsnException as NyholmInvalidDsnException;
 use Webf\Flysystem\Dsn\Exception\InvalidDsnException;
 use Webf\Flysystem\Dsn\Exception\MissingDsnParameterException;
@@ -60,6 +61,8 @@ class AwsS3AdapterFactory implements FlysystemAdapterFactoryInterface
     {
         try {
             $scheme = DsnParser::parse($dsn)->getScheme() ?: '';
+        } catch (FunctionsNotAllowedException) {
+            return false;
         } catch (NyholmInvalidDsnException $e) {
             throw new InvalidDsnException($e->getMessage(), previous: $e);
         }

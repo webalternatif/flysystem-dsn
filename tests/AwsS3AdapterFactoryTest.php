@@ -163,6 +163,7 @@ class AwsS3AdapterFactoryTest extends TestCase
         foreach ($unsupportedSchemes as $scheme) {
             $this->assertFalse($factory->supports("{$scheme}://username:password@host?region=region&bucket=bucket"));
         }
+        $this->assertFalse($factory->supports('s3(inner://)'));
     }
 
     public function test_supports_throws_exception_when_dsn_is_invalid(): void

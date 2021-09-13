@@ -6,6 +6,7 @@ namespace Webf\Flysystem\Dsn;
 
 use Nyholm\Dsn\Configuration\Dsn;
 use Nyholm\Dsn\DsnParser;
+use Nyholm\Dsn\Exception\FunctionsNotAllowedException;
 use Nyholm\Dsn\Exception\InvalidDsnException as NyholmInvalidDsnException;
 use OpenStack\OpenStack;
 use Webf\Flysystem\Dsn\Exception\InvalidDsnException;
@@ -112,6 +113,8 @@ class OpenStackSwiftAdapterFactory implements FlysystemAdapterFactoryInterface
     {
         try {
             $scheme = DsnParser::parse($dsn)->getScheme() ?: '';
+        } catch (FunctionsNotAllowedException) {
+            return false;
         } catch (NyholmInvalidDsnException $e) {
             throw new InvalidDsnException($e->getMessage(), previous: $e);
         }

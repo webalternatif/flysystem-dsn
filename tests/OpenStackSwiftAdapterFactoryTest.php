@@ -290,6 +290,7 @@ class OpenStackSwiftAdapterFactoryTest extends TestCase
         foreach ($unsupportedSchemes as $scheme) {
             $this->assertFalse($factory->supports("{$scheme}://username:password@host?region=region&container=container"));
         }
+        $this->assertFalse($factory->supports('swift(inner://)'));
     }
 
     public function test_supports_throws_exception_when_dsn_is_invalid(): void
