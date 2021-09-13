@@ -22,7 +22,7 @@ class FlysystemAdapterFactory implements FlysystemAdapterFactoryInterface
     public function createAdapter(string $dsn): FilesystemAdapter
     {
         try {
-            DsnParser::parse($dsn);
+            DsnParser::parseFunc($dsn);
         } catch (NyholmInvalidDsnException $e) {
             throw new InvalidDsnException($e->getMessage(), previous: $e);
         }

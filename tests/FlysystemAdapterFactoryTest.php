@@ -8,9 +8,12 @@ use PHPUnit\Framework\TestCase;
 use Webf\Flysystem\Dsn\AwsS3AdapterFactory;
 use Webf\Flysystem\Dsn\Exception\InvalidDsnException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
+use Webf\Flysystem\Dsn\FailoverAdapterFactory;
 use Webf\Flysystem\Dsn\FlysystemAdapterFactory;
 use Webf\Flysystem\Dsn\OpenStackSwiftAdapterFactory;
 use Webf\Flysystem\OpenStackSwift\OpenStackSwiftAdapter;
+use Webf\FlysystemFailoverBundle\Flysystem\FailoverAdapter;
+use Webf\FlysystemFailoverBundle\MessageRepository\MessageRepositoryInterface;
 
 /**
  * @internal
@@ -22,6 +25,10 @@ class FlysystemAdapterFactoryTest extends TestCase
     {
         $factory = new FlysystemAdapterFactory([
             new AwsS3AdapterFactory(),
+            new FailoverAdapterFactory(
+                new OpenStackSwiftAdapterFactory(),
+                $this->createMock(MessageRepositoryInterface::class)
+            ),
             new OpenStackSwiftAdapterFactory(),
         ]);
 
@@ -30,6 +37,15 @@ class FlysystemAdapterFactoryTest extends TestCase
             $factory->createAdapter(
                 'swift://username:password@host?region=region&container=container'
             )
+        );
+
+        $this->assertInstanceOf(
+            FailoverAdapter::class,
+            $factory->createAdapter(sprintf(
+                'failover(%s %s)?name=default',
+                'swift://username:password@host?region=region&container=container',
+                'swift://username:password@host?region=region&container=container'
+            ))
         );
     }
 

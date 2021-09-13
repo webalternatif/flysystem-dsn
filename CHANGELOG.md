@@ -10,7 +10,8 @@
 
 ### 🐛 Bug fixes
 
-  * Do not throw `FunctionsNotAllowedException` in `supports` method of `AwsS3AdapterFactory` and `OpenStackSwiftAdapterFactory` 
+  * Do not throw `FunctionsNotAllowedException` in `supports` method of `AwsS3AdapterFactory` and `OpenStackSwiftAdapterFactory`
+  * Allow DSN functions in `FlysystemAdapterFactory::createAdapter()`
 
 ## v0.1.0 (August 30, 2021)
 
