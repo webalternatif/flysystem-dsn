@@ -54,11 +54,25 @@ $adapter = $factory->createAdapter($dsn);
 
 * `version` (default: `latest`)
 
+### Failover
+
+|               |                                                            |
+|---------------|------------------------------------------------------------|
+| Inner adapter | [`webalternatif/flysystem-failover-bundle`][11]            |
+| Install       | `composer require webalternatif/flysystem-failover-bundle` |
+| Factory class | `Webf\Flysystem\Dsn\FailoverAdapterFactory`                |
+| DSN           | `failover(inner1:// inner2:// ...)?name=name`              |
+|               |                                                            |
+
+* There must be at least 2 DSN arguments for the failover DSN function.
+* The `name` parameter is used for the failover adapter's name in failover bundle (used to identify adapters in Symfony commands).
+* For each inner DSN, you can specify a `time_shift` parameter (see [configuration section][111] of the failover bundle for more info). This parameter is removed from the inner DSN when it's built.
+
 ### OpenStack Swift
 
 |               |                                                                        |
 |---------------|------------------------------------------------------------------------|
-| Inner adapter | [`webalternatif/flysystem-openstack-swift`][11]                        |
+| Inner adapter | [`webalternatif/flysystem-openstack-swift`][12]                        |
 | Install       | `composer require webalternatif/flysystem-openstack-swift`             |
 | Factory class | `Webf\Flysystem\Dsn\OpenStackSwiftAdapterFactory`                      |
 | DSN           | `swift://username:password@endpoint?region=region&container=container` |
@@ -104,4 +118,6 @@ $ composer cs-check
 [4]: https://infection.github.io
 [5]: https://cs.symfony.com/
 [10]: https://github.com/thephpleague/flysystem-aws-s3-v3
-[11]: https://github.com/webalternatif/flysystem-openstack-swift
+[11]: https://github.com/webalternatif/flysystem-failover-bundle
+[111]: https://github.com/webalternatif/flysystem-failover-bundle#configuration
+[12]: https://github.com/webalternatif/flysystem-openstack-swift
