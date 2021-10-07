@@ -68,11 +68,22 @@ $adapter = $factory->createAdapter($dsn);
 * The `name` parameter is used for the failover adapter's name in failover bundle (used to identify adapters in Symfony commands).
 * For each inner DSN, you can specify a `time_shift` parameter (see [configuration section][111] of the failover bundle for more info). This parameter is removed from the inner DSN when it's built.
 
+### Local
+
+|               |                                              |
+|---------------|----------------------------------------------|
+| Inner adapter | Built-in with [`thephpleague/flysystem`][12] |
+| Factory class | `Webf\Flysystem\Dsn\LocalAdapterFactory`     |
+| DSN           | `local://absolute_or_relative_path`          |
+|               |                                              |
+
+* If path contains spaces, replace each one by `%20`.
+
 ### OpenStack Swift
 
 |               |                                                                        |
 |---------------|------------------------------------------------------------------------|
-| Inner adapter | [`webalternatif/flysystem-openstack-swift`][12]                        |
+| Inner adapter | [`webalternatif/flysystem-openstack-swift`][13]                        |
 | Install       | `composer require webalternatif/flysystem-openstack-swift`             |
 | Factory class | `Webf\Flysystem\Dsn\OpenStackSwiftAdapterFactory`                      |
 | DSN           | `swift://username:password@endpoint?region=region&container=container` |
@@ -120,4 +131,5 @@ $ composer cs-check
 [10]: https://github.com/thephpleague/flysystem-aws-s3-v3
 [11]: https://github.com/webalternatif/flysystem-failover-bundle
 [111]: https://github.com/webalternatif/flysystem-failover-bundle#configuration
-[12]: https://github.com/webalternatif/flysystem-openstack-swift
+[12]: https://github.com/thephpleague/flysystem
+[13]: https://github.com/webalternatif/flysystem-openstack-swift

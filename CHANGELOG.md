@@ -1,3 +1,9 @@
+## v0.2.1 (unreleased)
+
+### ✨ New features
+
+* Add `LocalAdapterFactory`
+
 ## v0.2.0 (September 14, 2021)
 
 ### 💥 Breaking changes
