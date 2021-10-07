@@ -28,6 +28,7 @@
     },
     "suggest": {
         "league/flysystem-aws-s3-v3": "To use AwsS3AdapterFactory",
+        "webalternatif/flysystem-failover-bundle": "To use FailoverAdapterFactory",
         "webalternatif/flysystem-openstack-swift": "To use OpenStackSwiftAdapterFactory"
     },
     "scripts": {
