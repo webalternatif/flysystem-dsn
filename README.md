@@ -79,6 +79,14 @@ $adapter = $factory->createAdapter($dsn);
 
 * If path contains spaces, replace each one by `%20`.
 
+#### Optional DSN parameters
+
+* `public_file_permission`: unix permission for public files (default: `0644`)
+* `private_file_permission`: unix permission for public files (default: `0600`)
+* `public_dir_permission`: unix permission for public files (default: `0755`)
+* `private_dir_permission`: unix permission for public files (default: `0700`)
+* `default_dir_visibility`: default visibility for automatically created directories (must be `public` or `private`, default: `private`)
+
 ### OpenStack Swift
 
 |               |                                                                        |
