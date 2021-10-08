@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Webf\Flysystem\Dsn;
 
 use League\Flysystem\InMemory\InMemoryFilesystemAdapter;
+use League\Flysystem\Visibility;
+use Nyholm\Dsn\Configuration\Dsn;
 use Nyholm\Dsn\DsnParser;
 use Nyholm\Dsn\Exception\FunctionsNotAllowedException;
 use Nyholm\Dsn\Exception\InvalidDsnException as NyholmInvalidDsnException;
 use Webf\Flysystem\Dsn\Exception\InvalidDsnException;
+use Webf\Flysystem\Dsn\Exception\UnableToCreateAdapterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 
 class InMemoryAdapterFactory implements FlysystemAdapterFactoryInterface
@@ -26,7 +29,12 @@ class InMemoryAdapterFactory implements FlysystemAdapterFactoryInterface
             throw UnsupportedDsnException::create($this, $dsnString);
         }
 
-        return new InMemoryFilesystemAdapter();
+        $defaultVisibility = $this->getStringParameter($dsn, 'default_visibility') ?: Visibility::PUBLIC;
+        if (!in_array($defaultVisibility, [Visibility::PUBLIC, Visibility::PRIVATE])) {
+            throw UnableToCreateAdapterException::create(sprintf('Parameter "default_visibility" must be "%s" or "%s"', Visibility::PUBLIC, Visibility::PRIVATE), $dsnString);
+        }
+
+        return new InMemoryFilesystemAdapter($defaultVisibility);
     }
 
     public function supports(string $dsn): bool
@@ -40,5 +48,14 @@ class InMemoryAdapterFactory implements FlysystemAdapterFactoryInterface
         }
 
         return 'in-memory' === $scheme;
+    }
+
+    private function getStringParameter(Dsn $dsn, string $parameter): ?string
+    {
+        if (!is_string($value = $dsn->getParameter($parameter))) {
+            return null;
+        }
+
+        return $value;
     }
 }

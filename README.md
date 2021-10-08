@@ -78,6 +78,8 @@ $adapter = $factory->createAdapter($dsn);
 | DSN           | `in-memory://`                              |
 |               |                                             |
 
+* `default_visibility`: default visibility of created files and directories (must be `public` or `private`, default: `public`)
+
 ### Local
 
 |               |                                              |

@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Tests\Webf\Flysystem\Dsn;
 
 use League\Flysystem\InMemory\InMemoryFilesystemAdapter;
+use League\Flysystem\Visibility;
 use PHPUnit\Framework\TestCase;
 use Webf\Flysystem\Dsn\Exception\InvalidDsnException;
+use Webf\Flysystem\Dsn\Exception\UnableToCreateAdapterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 use Webf\Flysystem\Dsn\InMemoryAdapterFactory;
 
@@ -23,6 +25,11 @@ class InMemoryAdapterFactoryTest extends TestCase
         $this->assertEquals(
             new InMemoryFilesystemAdapter(),
             $factory->createAdapter('in-memory://')
+        );
+
+        $this->assertEquals(
+            new InMemoryFilesystemAdapter(Visibility::PRIVATE),
+            $factory->createAdapter('in-memory://?default_visibility=private')
         );
     }
 
@@ -58,6 +65,15 @@ class InMemoryAdapterFactoryTest extends TestCase
                 ));
             }
         }
+    }
+
+    public function test_create_adapter_throws_exception_when_default_visibility_is_invalid(): void
+    {
+        $factory = new InMemoryAdapterFactory();
+
+        $this->expectException(UnableToCreateAdapterException::class);
+
+        $factory->createAdapter('in-memory://?default_visibility=0755');
     }
 
     public function test_supports(): void
