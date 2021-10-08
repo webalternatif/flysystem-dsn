@@ -9,7 +9,7 @@ use League\Flysystem\UnixVisibility\PortableVisibilityConverter;
 use League\Flysystem\Visibility;
 use PHPUnit\Framework\TestCase;
 use Webf\Flysystem\Dsn\Exception\InvalidDsnException;
-use Webf\Flysystem\Dsn\Exception\UnableToCreateAdapterException;
+use Webf\Flysystem\Dsn\Exception\InvalidDsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 use Webf\Flysystem\Dsn\LocalAdapterFactory;
 
@@ -138,15 +138,15 @@ class LocalAdapterFactoryTest extends TestCase
             $factory->createAdapter("local://var?{$parameter}={$permission}");
             $this->fail(sprintf(
                 'Failed asserting that exception of type "%s" is thrown.',
-                UnableToCreateAdapterException::class
+                InvalidDsnParameterException::class
             ));
-        } catch (UnableToCreateAdapterException) {
+        } catch (InvalidDsnParameterException) {
             $this->addToAssertionCount(1);
         } catch (\Throwable $t) {
             $this->fail(sprintf(
                 'Failed asserting that exception of type "%s" matches expected exception "%s".',
                 get_class($t),
-                UnableToCreateAdapterException::class
+                InvalidDsnParameterException::class
             ));
         }
     }
@@ -173,7 +173,7 @@ class LocalAdapterFactoryTest extends TestCase
     {
         $factory = new LocalAdapterFactory();
 
-        $this->expectException(UnableToCreateAdapterException::class);
+        $this->expectException(InvalidDsnParameterException::class);
 
         $factory->createAdapter('local://var?default_dir_visibility=0755');
     }

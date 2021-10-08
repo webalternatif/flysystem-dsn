@@ -8,7 +8,7 @@ use League\Flysystem\InMemory\InMemoryFilesystemAdapter;
 use League\Flysystem\Visibility;
 use PHPUnit\Framework\TestCase;
 use Webf\Flysystem\Dsn\Exception\InvalidDsnException;
-use Webf\Flysystem\Dsn\Exception\UnableToCreateAdapterException;
+use Webf\Flysystem\Dsn\Exception\InvalidDsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 use Webf\Flysystem\Dsn\InMemoryAdapterFactory;
 
@@ -71,7 +71,7 @@ class InMemoryAdapterFactoryTest extends TestCase
     {
         $factory = new InMemoryAdapterFactory();
 
-        $this->expectException(UnableToCreateAdapterException::class);
+        $this->expectException(InvalidDsnParameterException::class);
 
         $factory->createAdapter('in-memory://?default_visibility=0755');
     }

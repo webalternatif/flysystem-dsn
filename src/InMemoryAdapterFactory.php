@@ -11,7 +11,7 @@ use Nyholm\Dsn\DsnParser;
 use Nyholm\Dsn\Exception\FunctionsNotAllowedException;
 use Nyholm\Dsn\Exception\InvalidDsnException as NyholmInvalidDsnException;
 use Webf\Flysystem\Dsn\Exception\InvalidDsnException;
-use Webf\Flysystem\Dsn\Exception\UnableToCreateAdapterException;
+use Webf\Flysystem\Dsn\Exception\InvalidDsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 
 class InMemoryAdapterFactory implements FlysystemAdapterFactoryInterface
@@ -31,7 +31,7 @@ class InMemoryAdapterFactory implements FlysystemAdapterFactoryInterface
 
         $defaultVisibility = $this->getStringParameter($dsn, 'default_visibility') ?: Visibility::PUBLIC;
         if (!in_array($defaultVisibility, [Visibility::PUBLIC, Visibility::PRIVATE])) {
-            throw UnableToCreateAdapterException::create(sprintf('Parameter "default_visibility" must be "%s" or "%s"', Visibility::PUBLIC, Visibility::PRIVATE), $dsnString);
+            throw InvalidDsnParameterException::create(sprintf('must be "%s" or "%s"', Visibility::PUBLIC, Visibility::PRIVATE), 'default_visibility', $dsnString);
         }
 
         return new InMemoryFilesystemAdapter($defaultVisibility);

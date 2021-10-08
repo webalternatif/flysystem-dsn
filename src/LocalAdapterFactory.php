@@ -12,7 +12,7 @@ use Nyholm\Dsn\DsnParser;
 use Nyholm\Dsn\Exception\FunctionsNotAllowedException;
 use Nyholm\Dsn\Exception\InvalidDsnException as NyholmInvalidDsnException;
 use Webf\Flysystem\Dsn\Exception\InvalidDsnException;
-use Webf\Flysystem\Dsn\Exception\UnableToCreateAdapterException;
+use Webf\Flysystem\Dsn\Exception\InvalidDsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 
 class LocalAdapterFactory implements FlysystemAdapterFactoryInterface
@@ -37,7 +37,7 @@ class LocalAdapterFactory implements FlysystemAdapterFactoryInterface
 
         $defaultDirVisibility = $this->getStringParameter($dsn, 'default_dir_visibility') ?: Visibility::PRIVATE;
         if (!in_array($defaultDirVisibility, [Visibility::PUBLIC, Visibility::PRIVATE])) {
-            throw UnableToCreateAdapterException::create(sprintf('Parameter "default_dir_visibility" must be "%s" or "%s"', Visibility::PUBLIC, Visibility::PRIVATE), $dsnString);
+            throw InvalidDsnParameterException::create(sprintf('must be "%s" or "%s"', Visibility::PUBLIC, Visibility::PRIVATE), 'default_dir_visibility', $dsnString);
         }
 
         $permissionMap = [];
@@ -89,7 +89,7 @@ class LocalAdapterFactory implements FlysystemAdapterFactoryInterface
         }
 
         if (!preg_match('/^[0-9]{3,4}$/', $value)) {
-            throw UnableToCreateAdapterException::create(sprintf('Parameter "%s" must be of length 3 or 4', $parameter), $dsn->__toString());
+            throw InvalidDsnParameterException::create('must be of length 3 or 4', $parameter, $dsn->__toString());
         }
 
         return intval($value, 8);

@@ -1,4 +1,8 @@
-## v0.2.1 (unreleased)
+## v0.3.0 (unreleased)
+
+### 💥 Breaking changes
+
+* Add `InvalidDsnParameterException`, possibly thrown by `FlysystemAdapterFactoryInterface::createAdapter()`
 
 ### ✨ New features
 
