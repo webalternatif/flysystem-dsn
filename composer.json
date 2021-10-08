@@ -20,6 +20,7 @@
         "friendsofphp/php-cs-fixer": "^3.0",
         "infection/infection": "^0.24.0",
         "league/flysystem-aws-s3-v3": "^2.1",
+        "league/flysystem-memory": "^2.0",
         "php-opencloud/openstack": "^3.2",
         "phpunit/phpunit": "^9.5",
         "vimeo/psalm": "^4.9",
@@ -28,6 +29,7 @@
     },
     "suggest": {
         "league/flysystem-aws-s3-v3": "To use AwsS3AdapterFactory",
+        "league/flysystem-memory": "To use MemoryAdapterFactory",
         "webalternatif/flysystem-failover-bundle": "To use FailoverAdapterFactory",
         "webalternatif/flysystem-openstack-swift": "To use OpenStackSwiftAdapterFactory"
     },

@@ -2,6 +2,7 @@
 
 ### ✨ New features
 
+* Add `InMemoryAdapterFactory`
 * Add `LocalAdapterFactory`
 
 ## v0.2.0 (September 14, 2021)
