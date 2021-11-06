@@ -43,7 +43,7 @@ $adapter = $factory->createAdapter($dsn);
 |               |                                                               |
 |---------------|---------------------------------------------------------------|
 | Inner adapter | [`league/flysystem-aws-s3-v3`][10]                            |
-| Install       | `composer require league/flysystem-aws-s3-v3`                 |
+| Install       | [`composer require league/flysystem-aws-s3-v3`][100]          |
 | Factory class | `Webf\Flysystem\Dsn\AwsS3AdapterFactory`                      |
 | DSN           | `s3://username:password@endpoint?region=region&bucket=bucket` |
 |               |                                                               |
@@ -57,13 +57,13 @@ $adapter = $factory->createAdapter($dsn);
 
 ### Failover
 
-|               |                                                            |
-|---------------|------------------------------------------------------------|
-| Inner adapter | [`webalternatif/flysystem-failover-bundle`][11]            |
-| Install       | `composer require webalternatif/flysystem-failover-bundle` |
-| Factory class | `Webf\Flysystem\Dsn\FailoverAdapterFactory`                |
-| DSN           | `failover(inner1:// inner2:// ...)?name=name`              |
-|               |                                                            |
+|               |                                                                   |
+|---------------|-------------------------------------------------------------------|
+| Inner adapter | [`webalternatif/flysystem-failover-bundle`][11]                   |
+| Install       | [`composer require webalternatif/flysystem-failover-bundle`][110] |
+| Factory class | `Webf\Flysystem\Dsn\FailoverAdapterFactory`                       |
+| DSN           | `failover(inner1:// inner2:// ...)?name=name`                     |
+|               |                                                                   |
 
 * There must be at least 2 DSN arguments for the failover DSN function.
 * The `name` parameter is used for the failover adapter's name in failover bundle (used to identify adapters in Symfony commands).
@@ -71,13 +71,13 @@ $adapter = $factory->createAdapter($dsn);
 
 ### In memory
 
-|               |                                             |
-|---------------|---------------------------------------------|
-| Inner adapter | [`league/flysystem-memory`][12]             |
-| Install       | `composer require league/flysystem-memory`  |
-| Factory class | `Webf\Flysystem\Dsn\InMemoryAdapterFactory` |
-| DSN           | `in-memory://`                              |
-|               |                                             |
+|               |                                                   |
+|---------------|---------------------------------------------------|
+| Inner adapter | [`league/flysystem-memory`][12]                   |
+| Install       | [`composer require league/flysystem-memory`][120] |
+| Factory class | `Webf\Flysystem\Dsn\InMemoryAdapterFactory`       |
+| DSN           | `in-memory://`                                    |
+|               |                                                   |
 
 #### Optional DSN parameters
 
@@ -107,7 +107,7 @@ $adapter = $factory->createAdapter($dsn);
 |               |                                                                        |
 |---------------|------------------------------------------------------------------------|
 | Inner adapter | [`webalternatif/flysystem-openstack-swift`][14]                        |
-| Install       | `composer require webalternatif/flysystem-openstack-swift`             |
+| Install       | [`composer require webalternatif/flysystem-openstack-swift`][140]      |
 | Factory class | `Webf\Flysystem\Dsn\OpenStackSwiftAdapterFactory`                      |
 | DSN           | `swift://username:password@endpoint?region=region&container=container` |
 |               |                                                                        |
@@ -133,7 +133,7 @@ $adapter = $factory->createAdapter($dsn);
 |               |                                                    |
 |---------------|----------------------------------------------------|
 | Inner adapter | [`league/flysystem-sftp`][15]                      |
-| Install       | `composer require league/flysystem-sftp`           |
+| Install       | [`composer require league/flysystem-sftp`][150]    |
 | Factory class | `Webf\Flysystem\Dsn\SftpAdapterFactory`            |
 | DSN           | `sftp://username:password@host:port/absolute/path` |
 |               |                                                    |
@@ -179,9 +179,14 @@ composer cs-check
 [4]: https://infection.github.io
 [5]: https://cs.symfony.com/
 [10]: https://github.com/thephpleague/flysystem-aws-s3-v3
+[100]: https://packagist.org/packages/league/flysystem-aws-s3-v3
 [11]: https://github.com/webalternatif/flysystem-failover-bundle
+[110]: https://packagist.org/packages/webalternatif/flysystem-failover-bundle
 [111]: https://github.com/webalternatif/flysystem-failover-bundle#configuration
 [12]: https://github.com/thephpleague/flysystem-memory
+[120]: https://packagist.org/packages/league/flysystem-memory
 [13]: https://github.com/thephpleague/flysystem
 [14]: https://github.com/webalternatif/flysystem-openstack-swift
+[140]: https://packagist.org/packages/webalternatif/flysystem-openstack-swift
 [15]: https://github.com/thephpleague/flysystem-sftp
+[150]: https://packagist.org/packages/league/flysystem-sftp
