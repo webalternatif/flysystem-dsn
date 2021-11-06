@@ -1,8 +1,9 @@
 # Flysystem DSN
 
 [![Source code](https://img.shields.io/badge/source-GitHub-blue)](https://github.com/webalternatif/flysystem-dsn)
+[![Packagist Version](https://img.shields.io/packagist/v/webalternatif/flysystem-dsn)](https://packagist.org/packages/webalternatif/flysystem-dsn)
 [![Software license](https://img.shields.io/github/license/webalternatif/flysystem-dsn)](https://github.com/webalternatif/flysystem-dsn/blob/master/LICENSE)
-[![GitHub issues](https://img.shields.io/github/issues/webalternatif/flysystem-dsn)](https://github.com/webalternatif/flysystem-dsn/issues)
+[![GitHub issues](https://img.shields.io/github/issues/webalternatif/flysystem-dsn)](https://github.com/webalternatif/flysystem-dsn/issues) \
 [![Test status](https://img.shields.io/github/workflow/status/webalternatif/flysystem-dsn/test?label=tests)](https://github.com/webalternatif/flysystem-dsn/actions/workflows/test.yml)
 [![Psalm coverage](https://shepherd.dev/github/webalternatif/flysystem-dsn/coverage.svg)](https://psalm.dev)
 [![Psalm level](https://shepherd.dev/github/webalternatif/flysystem-dsn/level.svg)](https://psalm.dev)
@@ -78,16 +79,18 @@ $adapter = $factory->createAdapter($dsn);
 | DSN           | `in-memory://`                              |
 |               |                                             |
 
+#### Optional DSN parameters
+
 * `default_visibility`: default visibility of created files and directories (must be `public` or `private`, default: `public`)
 
 ### Local
 
-|               |                                              |
-|---------------|----------------------------------------------|
-| Inner adapter | Built-in with [`thephpleague/flysystem`][13] |
-| Factory class | `Webf\Flysystem\Dsn\LocalAdapterFactory`     |
-| DSN           | `local://absolute_or_relative_path`          |
-|               |                                              |
+|               |                                          |
+|---------------|------------------------------------------|
+| Inner adapter | Built-in with [`league/flysystem`][13]   |
+| Factory class | `Webf\Flysystem\Dsn\LocalAdapterFactory` |
+| DSN           | `local://absolute_or_relative_path`      |
+|               |                                          |
 
 * If path contains spaces, replace each one by `%20`.
 
@@ -130,17 +133,17 @@ $adapter = $factory->createAdapter($dsn);
 To run all tests, execute the command:
 
 ```bash
-$ composer test
+composer test
 ```
 
 This will run [Psalm][2], [PHPUnit][3], [Infection][4] and a [PHP-CS-Fixer][5]
 check, but you can run them individually like this:
 
 ```bash
-$ composer psalm
-$ composer phpunit
-$ composer infection
-$ composer cs-check
+composer psalm
+composer phpunit
+composer infection
+composer cs-check
 ```
 
 [1]: https://flysystem.thephpleague.com
