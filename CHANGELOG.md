@@ -1,3 +1,9 @@
+## v0.3.1 (unreleased)
+
+### ✨ New features
+
+* Add `SftpAdapterFactory`
+
 ## v0.3.0 (October 8, 2021)
 
 ### 💥 Breaking changes

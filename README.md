@@ -128,6 +128,33 @@ $adapter = $factory->createAdapter($dsn);
 * `project_domain_id`: `auth.scope.project.domain.id` value sent to Keystone v3 API
 * `project_domain_name`: `auth.scope.project.domain.name` value sent to Keystone v3 API
 
+### Sftp
+
+|               |                                                    |
+|---------------|----------------------------------------------------|
+| Inner adapter | [`league/flysystem-sftp`][15]                      |
+| Install       | `composer require league/flysystem-sftp`           |
+| Factory class | `Webf\Flysystem\Dsn\SftpAdapterFactory`            |
+| DSN           | `sftp://username:password@host:port/absolute/path` |
+|               |                                                    |
+
+* The password can be empty if the `private_key` parameter is defined.
+* If path contains spaces, replace each one by `%20`.
+
+#### Optional DSN parameters
+
+* `private_key`: absolute path of a private key file, can be used instead of password
+* `passphrase`: passphrase of the private key
+* `use_agent`: whether to use ssh agent or not (default: `false`)
+* `timeout`: request timeout in seconds (default: `10`)
+* `max_retries`: number of connection retries before triggering an error (default: `4`)
+* `host_fingerprint`: the host fingerprint to check
+* `public_file_permission`: unix permission for public files (default: `0644`)
+* `private_file_permission`: unix permission for public files (default: `0600`)
+* `public_dir_permission`: unix permission for public files (default: `0755`)
+* `private_dir_permission`: unix permission for public files (default: `0700`)
+* `default_dir_visibility`: default visibility for automatically created directories (must be `public` or `private`, default: `private`)
+
 ## Tests
 
 To run all tests, execute the command:
@@ -157,3 +184,4 @@ composer cs-check
 [12]: https://github.com/thephpleague/flysystem-memory
 [13]: https://github.com/thephpleague/flysystem
 [14]: https://github.com/webalternatif/flysystem-openstack-swift
+[15]: https://github.com/thephpleague/flysystem-sftp
