@@ -136,6 +136,9 @@ class FtpAdapterFactory implements FlysystemAdapterFactoryInterface
         return (bool) $value;
     }
 
+    /**
+     * @throws InvalidDsnParameterException
+     */
     private function getPermissionParameter(Dsn $dsn, string $parameter): ?int
     {
         if (null === ($value = $this->getStringParameter($dsn, $parameter))) {

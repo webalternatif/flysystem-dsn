@@ -104,6 +104,9 @@ class SftpAdapterFactory implements FlysystemAdapterFactoryInterface
         return (int) $value;
     }
 
+    /**
+     * @throws InvalidDsnParameterException
+     */
     private function getPermissionParameter(Dsn $dsn, string $parameter): ?int
     {
         if (null === ($value = $this->getStringParameter($dsn, $parameter))) {

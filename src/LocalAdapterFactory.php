@@ -82,6 +82,9 @@ class LocalAdapterFactory implements FlysystemAdapterFactoryInterface
         return $value;
     }
 
+    /**
+     * @throws InvalidDsnParameterException
+     */
     private function getPermissionParameter(Dsn $dsn, string $parameter): ?int
     {
         if (null === ($value = $this->getStringParameter($dsn, $parameter))) {
