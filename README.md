@@ -69,12 +69,42 @@ $adapter = $factory->createAdapter($dsn);
 * The `name` parameter is used for the failover adapter's name in failover bundle (used to identify adapters in Symfony commands).
 * For each inner DSN, you can specify a `time_shift` parameter (see [configuration section][111] of the failover bundle for more info). This parameter is removed from the inner DSN when it's built.
 
+### Ftp
+
+|               |                                                   |
+|---------------|---------------------------------------------------|
+| Inner adapter | [`league/flysystem-ftp`][12]                      |
+| Install       | [`composer require league/flysystem-ftp`][120]    |
+| Factory class | `Webf\Flysystem\Dsn\FtpAdapterFactory`            |
+| DSN           | `ftp://username:password@host:port/absolute/path` |
+|               |                                                   |
+
+* Port is optional and defaults to `21`
+* If path contains spaces, replace each one by `%20`.
+
+#### Optional DSN parameters
+
+* `ssl`: whether to use [`ftp_ssl_connect`][121] instead of [`ftp_connect`][122] (default: `false`)
+* `timeout`: timeout for all subsequent network operations (default: `90`)
+* `utf8`: whether to enable the UTF-8 mode or not (default: `false`)
+* `passive`: whether to enable the passive mode or not (default: `true`)
+* `transfer_mode`: transfer mode used for [`ftp_fget`][123] and [`ftp_fput`][124] calls (must be `ascii` or `binary`, default: `binary`)
+* `system_type`: system type of the ftp server (must be `unix` or `windows`)
+* `ignore_passive_address`: whether to set the [`FTP_USEPASVADDRESS`][125] option to the opposite
+* `timestamps_on_unix_listings`: whether to set last modified in metadata or not for unix systems (default: `false`)
+* `recurse_manually`: whether to recurse directories "manually" instead of using FTP option when the `$deep` parameter of `listContents()` is set to `true` (default: `false`)
+* `public_file_permission`: unix permission for public files (default: `0644`)
+* `private_file_permission`: unix permission for public files (default: `0600`)
+* `public_dir_permission`: unix permission for public files (default: `0755`)
+* `private_dir_permission`: unix permission for public files (default: `0700`)
+* `default_dir_visibility`: default visibility for automatically created directories (must be `public` or `private`, default: `private`)
+
 ### In memory
 
 |               |                                                   |
 |---------------|---------------------------------------------------|
-| Inner adapter | [`league/flysystem-memory`][12]                   |
-| Install       | [`composer require league/flysystem-memory`][120] |
+| Inner adapter | [`league/flysystem-memory`][13]                   |
+| Install       | [`composer require league/flysystem-memory`][130] |
 | Factory class | `Webf\Flysystem\Dsn\InMemoryAdapterFactory`       |
 | DSN           | `in-memory://`                                    |
 |               |                                                   |
@@ -87,7 +117,7 @@ $adapter = $factory->createAdapter($dsn);
 
 |               |                                          |
 |---------------|------------------------------------------|
-| Inner adapter | Built-in with [`league/flysystem`][13]   |
+| Inner adapter | Built-in with [`league/flysystem`][14]   |
 | Factory class | `Webf\Flysystem\Dsn\LocalAdapterFactory` |
 | DSN           | `local://absolute_or_relative_path`      |
 |               |                                          |
@@ -106,8 +136,8 @@ $adapter = $factory->createAdapter($dsn);
 
 |               |                                                                        |
 |---------------|------------------------------------------------------------------------|
-| Inner adapter | [`webalternatif/flysystem-openstack-swift`][14]                        |
-| Install       | [`composer require webalternatif/flysystem-openstack-swift`][140]      |
+| Inner adapter | [`webalternatif/flysystem-openstack-swift`][15]                        |
+| Install       | [`composer require webalternatif/flysystem-openstack-swift`][150]      |
 | Factory class | `Webf\Flysystem\Dsn\OpenStackSwiftAdapterFactory`                      |
 | DSN           | `swift://username:password@endpoint?region=region&container=container` |
 |               |                                                                        |
@@ -132,13 +162,14 @@ $adapter = $factory->createAdapter($dsn);
 
 |               |                                                    |
 |---------------|----------------------------------------------------|
-| Inner adapter | [`league/flysystem-sftp`][15]                      |
-| Install       | [`composer require league/flysystem-sftp`][150]    |
+| Inner adapter | [`league/flysystem-sftp`][16]                      |
+| Install       | [`composer require league/flysystem-sftp`][160]    |
 | Factory class | `Webf\Flysystem\Dsn\SftpAdapterFactory`            |
 | DSN           | `sftp://username:password@host:port/absolute/path` |
 |               |                                                    |
 
 * The password can be empty if the `private_key` parameter is defined.
+* Port is optional and defaults to `22`
 * If path contains spaces, replace each one by `%20`.
 
 #### Optional DSN parameters
@@ -183,10 +214,17 @@ composer cs-check
 [11]: https://github.com/webalternatif/flysystem-failover-bundle
 [110]: https://packagist.org/packages/webalternatif/flysystem-failover-bundle
 [111]: https://github.com/webalternatif/flysystem-failover-bundle#configuration
-[12]: https://github.com/thephpleague/flysystem-memory
-[120]: https://packagist.org/packages/league/flysystem-memory
-[13]: https://github.com/thephpleague/flysystem
-[14]: https://github.com/webalternatif/flysystem-openstack-swift
-[140]: https://packagist.org/packages/webalternatif/flysystem-openstack-swift
-[15]: https://github.com/thephpleague/flysystem-sftp
-[150]: https://packagist.org/packages/league/flysystem-sftp
+[12]: https://github.com/thephpleague/flysystem-ftp
+[120]: https://packagist.org/packages/league/flysystem-ftp
+[121]: https://www.php.net/manual/en/function.ftp-ssl-connect.php
+[122]: https://www.php.net/manual/en/function.ftp-connect.php
+[123]: https://www.php.net/manual/en/function.ftp-fget.php
+[124]: https://www.php.net/manual/en/function.ftp-fput.php
+[125]: https://www.php.net/manual/en/function.ftp-set-option.php
+[13]: https://github.com/thephpleague/flysystem-memory
+[130]: https://packagist.org/packages/league/flysystem-memory
+[14]: https://github.com/thephpleague/flysystem
+[15]: https://github.com/webalternatif/flysystem-openstack-swift
+[150]: https://packagist.org/packages/webalternatif/flysystem-openstack-swift
+[16]: https://github.com/thephpleague/flysystem-sftp
+[160]: https://packagist.org/packages/league/flysystem-sftp

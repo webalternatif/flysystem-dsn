@@ -20,6 +20,7 @@
         "friendsofphp/php-cs-fixer": "^3.0",
         "infection/infection": "^0.24.0",
         "league/flysystem-aws-s3-v3": "^2.1",
+        "league/flysystem-ftp": "^2.3",
         "league/flysystem-memory": "^2.0",
         "league/flysystem-sftp": "^2.2",
         "php-opencloud/openstack": "^3.2",
@@ -30,6 +31,7 @@
     },
     "suggest": {
         "league/flysystem-aws-s3-v3": "To use AwsS3AdapterFactory",
+        "league/flysystem-ftp": "To use FtpAdapterFactory",
         "league/flysystem-memory": "To use InMemoryAdapterFactory",
         "league/flysystem-sftp": "To use SftpAdapterFactory",
         "webalternatif/flysystem-failover-bundle": "To use FailoverAdapterFactory",
