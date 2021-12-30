@@ -1,3 +1,9 @@
+## v0.3.2 (unreleased)
+
+### ✨ New features
+
+* Add support of PHP 8.1
+
 ## v0.3.1 (November 7, 2021)
 
 ### ✨ New features
@@ -20,16 +26,16 @@
 
 ### 💥 Breaking changes
 
-  * Add `UnableToCreateAdapterException`, possibly thrown by `FlysystemAdapterFactoryInterface::createAdapter()`
+* Add `UnableToCreateAdapterException`, possibly thrown by `FlysystemAdapterFactoryInterface::createAdapter()`
 
 ### ✨ New features
 
-  * Add `FailoverAdapterFactory`
+* Add `FailoverAdapterFactory`
 
 ### 🐛 Bug fixes
 
-  * Do not throw `FunctionsNotAllowedException` in `supports` method of `AwsS3AdapterFactory` and `OpenStackSwiftAdapterFactory`
-  * Allow DSN functions in `FlysystemAdapterFactory::createAdapter()`
+* Do not throw `FunctionsNotAllowedException` in `supports` method of `AwsS3AdapterFactory` and `OpenStackSwiftAdapterFactory`
+* Allow DSN functions in `FlysystemAdapterFactory::createAdapter()`
 
 ## v0.1.0 (August 30, 2021)
 
