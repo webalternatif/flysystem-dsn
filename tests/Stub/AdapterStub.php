@@ -19,6 +19,11 @@ class AdapterStub implements FilesystemAdapter
         throw new \LogicException('This is a stub adapter, you must not call this method.');
     }
 
+    public function directoryExists(string $path): bool
+    {
+        throw new \LogicException('This is a stub adapter, you must not call this method.');
+    }
+
     public function write(string $path, string $contents, Config $config): void
     {
         throw new \LogicException('This is a stub adapter, you must not call this method.');
