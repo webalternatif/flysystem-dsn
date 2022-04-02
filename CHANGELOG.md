@@ -1,4 +1,4 @@
-## v0.4.0 (unreleased)
+## v0.4.0 (April 2, 2022)
 
 ### 💥 Breaking changes
 
