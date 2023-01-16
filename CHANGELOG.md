@@ -1,12 +1,12 @@
-## v0.5.0 (unrealeased)
+## v0.5.0 (January 16, 2023)
 
 ### 💥 Breaking changes
 
-* Replace league/flysystem-sftp by league/flysystem-sftp-v3
+* Replace league/flysystem-sftp by league/flysystem-sftp-v3 ([#2](https://github.com/webalternatif/flysystem-dsn/pull/2))
 
 ### ✨ New features
 
-* Add support of PHP 8.2
+* Add support of PHP 8.2 ([#4](https://github.com/webalternatif/flysystem-dsn/pull/4))
 
 ## v0.4.0 (April 2, 2022)
 
