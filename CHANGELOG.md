@@ -1,3 +1,9 @@
+## v0.5.0 (unrealeased)
+
+### 💥 Breaking changes
+
+* Replace league/flysystem-sftp by league/flysystem-sftp-v3
+
 ## v0.4.0 (April 2, 2022)
 
 ### 💥 Breaking changes

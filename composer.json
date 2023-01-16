@@ -22,7 +22,7 @@
         "league/flysystem-aws-s3-v3": "^3.0",
         "league/flysystem-ftp": "^3.0",
         "league/flysystem-memory": "^3.0",
-        "league/flysystem-sftp": "^3.0",
+        "league/flysystem-sftp-v3": "^3.0",
         "php-opencloud/openstack": "^3.2",
         "phpunit/phpunit": "^9.5",
         "vimeo/psalm": "^4.9",
@@ -33,7 +33,7 @@
         "league/flysystem-aws-s3-v3": "To use AwsS3AdapterFactory",
         "league/flysystem-ftp": "To use FtpAdapterFactory",
         "league/flysystem-memory": "To use InMemoryAdapterFactory",
-        "league/flysystem-sftp": "To use SftpAdapterFactory",
+        "league/flysystem-sftp-v3": "To use SftpAdapterFactory",
         "webalternatif/flysystem-failover-bundle": "To use FailoverAdapterFactory",
         "webalternatif/flysystem-openstack-swift": "To use OpenStackSwiftAdapterFactory"
     },
