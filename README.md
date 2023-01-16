@@ -4,7 +4,7 @@
 [![Packagist Version](https://img.shields.io/packagist/v/webalternatif/flysystem-dsn)](https://packagist.org/packages/webalternatif/flysystem-dsn)
 [![Software license](https://img.shields.io/github/license/webalternatif/flysystem-dsn)](https://github.com/webalternatif/flysystem-dsn/blob/master/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/webalternatif/flysystem-dsn)](https://github.com/webalternatif/flysystem-dsn/issues) \
-[![Test status](https://img.shields.io/github/workflow/status/webalternatif/flysystem-dsn/test?label=tests)](https://github.com/webalternatif/flysystem-dsn/actions/workflows/test.yml)
+[![Test status](https://img.shields.io/github/actions/workflow/status/webalternatif/flysystem-dsn/test.yml?branch=master&label=tests)](https://github.com/webalternatif/flysystem-dsn/actions/workflows/test.yml)
 [![Psalm coverage](https://shepherd.dev/github/webalternatif/flysystem-dsn/coverage.svg)](https://psalm.dev)
 [![Psalm level](https://shepherd.dev/github/webalternatif/flysystem-dsn/level.svg)](https://psalm.dev)
 [![Infection MSI](https://badge.stryker-mutator.io/github.com/webalternatif/flysystem-dsn/master)](https://infection.github.io)
