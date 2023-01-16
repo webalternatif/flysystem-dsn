@@ -4,6 +4,10 @@
 
 * Replace league/flysystem-sftp by league/flysystem-sftp-v3
 
+### ✨ New features
+
+* Add support of PHP 8.2
+
 ## v0.4.0 (April 2, 2022)
 
 ### 💥 Breaking changes
