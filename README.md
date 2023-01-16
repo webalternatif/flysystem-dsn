@@ -162,8 +162,8 @@ $adapter = $factory->createAdapter($dsn);
 
 |               |                                                    |
 |---------------|----------------------------------------------------|
-| Inner adapter | [`league/flysystem-sftp`][16]                      |
-| Install       | [`composer require league/flysystem-sftp`][160]    |
+| Inner adapter | [`league/flysystem-sftp-v3`][16]                   |
+| Install       | [`composer require league/flysystem-sftp-v3`][160] |
 | Factory class | `Webf\Flysystem\Dsn\SftpAdapterFactory`            |
 | DSN           | `sftp://username:password@host:port/absolute/path` |
 |               |                                                    |
@@ -226,5 +226,5 @@ composer cs-check
 [14]: https://github.com/thephpleague/flysystem
 [15]: https://github.com/webalternatif/flysystem-openstack-swift
 [150]: https://packagist.org/packages/webalternatif/flysystem-openstack-swift
-[16]: https://github.com/thephpleague/flysystem-sftp
-[160]: https://packagist.org/packages/league/flysystem-sftp
+[16]: https://github.com/thephpleague/flysystem-sftp-v3
+[160]: https://packagist.org/packages/league/flysystem-sftp-v3
