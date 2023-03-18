@@ -1,6 +1,6 @@
 {
     "name": "webalternatif/flysystem-dsn",
-    "description": "A set of factories to build Flysystem adapters from DSN",
+    "description": "A set of factories to build Flysystem adapters from DSN (Data Source Name)",
     "type": "library",
     "keywords": ["flysystem", "dsn", "adapter", "filesystem", "storage"],
     "license": "MIT",
