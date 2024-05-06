@@ -36,7 +36,7 @@ class SftpAdapterFactory implements FlysystemAdapterFactoryInterface
         $publicDirPermission = $this->getPermissionParameter($dsn, 'public_dir_permission');
         $privateDirPermission = $this->getPermissionParameter($dsn, 'private_dir_permission');
 
-        $defaultDirVisibility = $this->getStringParameter($dsn, 'default_dir_visibility') ?: Visibility::PRIVATE;
+        $defaultDirVisibility = $this->getStringParameter($dsn, 'default_dir_visibility') ?? Visibility::PRIVATE;
         if (!in_array($defaultDirVisibility, [Visibility::PUBLIC, Visibility::PRIVATE])) {
             throw InvalidDsnParameterException::create(sprintf('must be "%s" or "%s"', Visibility::PUBLIC, Visibility::PRIVATE), 'default_dir_visibility', $dsnString);
         }
@@ -57,18 +57,18 @@ class SftpAdapterFactory implements FlysystemAdapterFactoryInterface
 
         return new SftpAdapter(
             new SftpConnectionProvider(
-                $dsn->getHost() ?: '',
-                $dsn->getUser() ?: '',
+                $dsn->getHost() ?? '',
+                $dsn->getUser() ?? '',
                 $dsn->getPassword(),
                 $this->getStringParameter($dsn, 'private_key'),
                 $this->getStringParameter($dsn, 'passphrase'),
-                $dsn->getPort() ?: 22,
+                $dsn->getPort() ?? 22,
                 (bool) $this->getStringParameter($dsn, 'use_agent'),
-                $this->getIntParameter($dsn, 'timeout') ?: 10,
-                $this->getIntParameter($dsn, 'max_retries') ?: 4,
+                $this->getIntParameter($dsn, 'timeout') ?? 10,
+                $this->getIntParameter($dsn, 'max_retries') ?? 4,
                 $this->getStringParameter($dsn, 'host_fingerprint'),
             ),
-            $this->decodePath($dsn->getPath() ?: '/'),
+            $this->decodePath($dsn->getPath() ?? '/'),
             PortableVisibilityConverter::fromArray($permissionMap, $defaultDirVisibility)
         );
     }
@@ -76,7 +76,7 @@ class SftpAdapterFactory implements FlysystemAdapterFactoryInterface
     public function supports(string $dsn): bool
     {
         try {
-            $scheme = DsnParser::parse($dsn)->getScheme() ?: '';
+            $scheme = DsnParser::parse($dsn)->getScheme() ?? '';
         } catch (FunctionsNotAllowedException) {
             return false;
         } catch (NyholmInvalidDsnException $e) {

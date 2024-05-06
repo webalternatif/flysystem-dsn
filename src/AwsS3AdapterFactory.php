@@ -25,7 +25,7 @@ class AwsS3AdapterFactory implements FlysystemAdapterFactoryInterface
         }
 
         $matches = [];
-        if (1 !== preg_match('/^s3(?:\+(https?))?$/', $dsn->getScheme() ?: '', $matches)) {
+        if (1 !== preg_match('/^s3(?:\+(https?))?$/', $dsn->getScheme() ?? '', $matches)) {
             throw UnsupportedDsnException::create($this, $dsnString);
         }
 
@@ -47,7 +47,7 @@ class AwsS3AdapterFactory implements FlysystemAdapterFactoryInterface
                     'endpoint' => sprintf(
                         '%s://%s',
                         $matches[1] ?? 'https',
-                        ($dsn->getHost() ?: '') . ($dsn->getPath() ?: '')
+                        ($dsn->getHost() ?? '') . ($dsn->getPath() ?? '')
                     ),
                     'region' => $region,
                     'version' => $dsn->getParameter('version', 'latest'),
@@ -60,7 +60,7 @@ class AwsS3AdapterFactory implements FlysystemAdapterFactoryInterface
     public function supports(string $dsn): bool
     {
         try {
-            $scheme = DsnParser::parse($dsn)->getScheme() ?: '';
+            $scheme = DsnParser::parse($dsn)->getScheme() ?? '';
         } catch (FunctionsNotAllowedException) {
             return false;
         } catch (NyholmInvalidDsnException $e) {

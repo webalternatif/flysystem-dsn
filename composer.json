@@ -12,7 +12,7 @@
         }
     ],
     "require": {
-        "php": "8.0.* || 8.1.* || 8.2.*",
+        "php": "8.0.* || 8.1.* || 8.2.* || 8.3.*",
         "league/flysystem": "^3.0",
         "nyholm/dsn": "^2.0"
     },
@@ -25,7 +25,7 @@
         "league/flysystem-sftp-v3": "^3.0",
         "php-opencloud/openstack": "^3.2",
         "phpunit/phpunit": "^9.5",
-        "vimeo/psalm": "^4.9",
+        "vimeo/psalm": "^5.24",
         "webalternatif/flysystem-failover-bundle": "^0.4.0",
         "webalternatif/flysystem-openstack-swift": "^0.3.0"
     },

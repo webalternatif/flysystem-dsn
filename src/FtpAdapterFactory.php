@@ -37,7 +37,7 @@ class FtpAdapterFactory implements FlysystemAdapterFactoryInterface
             throw UnsupportedDsnException::create($this, $dsnString);
         }
 
-        $transferMode = $this->getStringParameter($dsn, 'transfer_mode') ?: self::TRANSFER_MODE_BINARY;
+        $transferMode = $this->getStringParameter($dsn, 'transfer_mode') ?? self::TRANSFER_MODE_BINARY;
         if (!in_array($transferMode, [self::TRANSFER_MODE_ASCII, self::TRANSFER_MODE_BINARY])) {
             throw InvalidDsnParameterException::create(sprintf('must be "%s" or "%s"', self::TRANSFER_MODE_ASCII, self::TRANSFER_MODE_BINARY), 'transfer_mode', $dsnString);
         }
@@ -53,7 +53,7 @@ class FtpAdapterFactory implements FlysystemAdapterFactoryInterface
         $publicDirPermission = $this->getPermissionParameter($dsn, 'public_dir_permission');
         $privateDirPermission = $this->getPermissionParameter($dsn, 'private_dir_permission');
 
-        $defaultDirVisibility = $this->getStringParameter($dsn, 'default_dir_visibility') ?: Visibility::PRIVATE;
+        $defaultDirVisibility = $this->getStringParameter($dsn, 'default_dir_visibility') ?? Visibility::PRIVATE;
         if (!in_array($defaultDirVisibility, [Visibility::PUBLIC, Visibility::PRIVATE])) {
             throw InvalidDsnParameterException::create(sprintf('must be "%s" or "%s"', Visibility::PUBLIC, Visibility::PRIVATE), 'default_dir_visibility', $dsnString);
         }
@@ -79,13 +79,13 @@ class FtpAdapterFactory implements FlysystemAdapterFactoryInterface
 
         return new FtpAdapter(
             new FtpConnectionOptions(
-                $dsn->getHost() ?: '',
-                $this->decodePath($dsn->getPath() ?: '/'),
-                $dsn->getUser() ?: '',
-                $dsn->getPassword() ?: '',
-                $dsn->getPort() ?: 21,
+                $dsn->getHost() ?? '',
+                $this->decodePath($dsn->getPath() ?? '/'),
+                $dsn->getUser() ?? '',
+                $dsn->getPassword() ?? '',
+                $dsn->getPort() ?? 21,
                 $this->getBoolParameter($dsn, 'ssl', false),
-                (int) ($this->getStringParameter($dsn, 'timeout') ?: 90),
+                (int) ($this->getStringParameter($dsn, 'timeout') ?? 90),
                 $this->getBoolParameter($dsn, 'utf8', false),
                 $this->getBoolParameter($dsn, 'passive', true),
                 $transferMode,
@@ -104,7 +104,7 @@ class FtpAdapterFactory implements FlysystemAdapterFactoryInterface
     public function supports(string $dsn): bool
     {
         try {
-            $scheme = DsnParser::parse($dsn)->getScheme() ?: '';
+            $scheme = DsnParser::parse($dsn)->getScheme() ?? '';
         } catch (FunctionsNotAllowedException) {
             return false;
         } catch (NyholmInvalidDsnException $e) {
