@@ -35,7 +35,7 @@ class LocalAdapterFactory implements FlysystemAdapterFactoryInterface
         $publicDirPermission = $this->getPermissionParameter($dsn, 'public_dir_permission');
         $privateDirPermission = $this->getPermissionParameter($dsn, 'private_dir_permission');
 
-        $defaultDirVisibility = $this->getStringParameter($dsn, 'default_dir_visibility') ?: Visibility::PRIVATE;
+        $defaultDirVisibility = $this->getStringParameter($dsn, 'default_dir_visibility') ?? Visibility::PRIVATE;
         if (!in_array($defaultDirVisibility, [Visibility::PUBLIC, Visibility::PRIVATE])) {
             throw InvalidDsnParameterException::create(sprintf('must be "%s" or "%s"', Visibility::PUBLIC, Visibility::PRIVATE), 'default_dir_visibility', $dsnString);
         }
@@ -55,7 +55,7 @@ class LocalAdapterFactory implements FlysystemAdapterFactoryInterface
         }
 
         return new LocalFilesystemAdapter(
-            $this->decodePath(($dsn->getHost() ?: '') . ($dsn->getPath() ?: '')),
+            $this->decodePath(($dsn->getHost() ?? '') . ($dsn->getPath() ?? '')),
             PortableVisibilityConverter::fromArray($permissionMap, $defaultDirVisibility)
         );
     }
@@ -63,7 +63,7 @@ class LocalAdapterFactory implements FlysystemAdapterFactoryInterface
     public function supports(string $dsn): bool
     {
         try {
-            $scheme = DsnParser::parse($dsn)->getScheme() ?: '';
+            $scheme = DsnParser::parse($dsn)->getScheme() ?? '';
         } catch (FunctionsNotAllowedException) {
             return false;
         } catch (NyholmInvalidDsnException $e) {

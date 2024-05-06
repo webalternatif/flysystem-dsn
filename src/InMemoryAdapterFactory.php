@@ -29,7 +29,7 @@ class InMemoryAdapterFactory implements FlysystemAdapterFactoryInterface
             throw UnsupportedDsnException::create($this, $dsnString);
         }
 
-        $defaultVisibility = $this->getStringParameter($dsn, 'default_visibility') ?: Visibility::PUBLIC;
+        $defaultVisibility = $this->getStringParameter($dsn, 'default_visibility') ?? Visibility::PUBLIC;
         if (!in_array($defaultVisibility, [Visibility::PUBLIC, Visibility::PRIVATE])) {
             throw InvalidDsnParameterException::create(sprintf('must be "%s" or "%s"', Visibility::PUBLIC, Visibility::PRIVATE), 'default_visibility', $dsnString);
         }
@@ -40,7 +40,7 @@ class InMemoryAdapterFactory implements FlysystemAdapterFactoryInterface
     public function supports(string $dsn): bool
     {
         try {
-            $scheme = DsnParser::parse($dsn)->getScheme() ?: '';
+            $scheme = DsnParser::parse($dsn)->getScheme() ?? '';
         } catch (FunctionsNotAllowedException) {
             return false;
         } catch (NyholmInvalidDsnException $e) {

@@ -26,7 +26,7 @@ class OpenStackSwiftAdapterFactory implements FlysystemAdapterFactoryInterface
         }
 
         $matches = [];
-        if (1 !== preg_match('/^swift(?:\+(https?))?$/', $dsn->getScheme() ?: '', $matches)) {
+        if (1 !== preg_match('/^swift(?:\+(https?))?$/', $dsn->getScheme() ?? '', $matches)) {
             throw UnsupportedDsnException::create($this, $dsnString);
         }
 
@@ -52,7 +52,7 @@ class OpenStackSwiftAdapterFactory implements FlysystemAdapterFactoryInterface
             'authUrl' => sprintf(
                 '%s://%s',
                 $matches[1] ?? 'https',
-                ($dsn->getHost() ?: '') . ($dsn->getPath() ?: '')
+                ($dsn->getHost() ?? '') . ($dsn->getPath() ?? '')
             ),
             'region' => $region,
             'user' => [
@@ -112,7 +112,7 @@ class OpenStackSwiftAdapterFactory implements FlysystemAdapterFactoryInterface
     public function supports(string $dsn): bool
     {
         try {
-            $scheme = DsnParser::parse($dsn)->getScheme() ?: '';
+            $scheme = DsnParser::parse($dsn)->getScheme() ?? '';
         } catch (FunctionsNotAllowedException) {
             return false;
         } catch (NyholmInvalidDsnException $e) {
