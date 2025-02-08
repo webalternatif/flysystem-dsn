@@ -1,12 +1,12 @@
-## v0.6.0 (unreleased)
+## v0.6.0 (February 8, 2025)
 
 ### 💥 Breaking changes
 
-* Drop support of PHP 8.0 and 8.1
+* Drop support of PHP 8.0 and 8.1 ([#10](https://github.com/webalternatif/flysystem-dsn/pull/10))
 
 ### ✨ New features
 
-* Add support of PHP 8.4
+* Add support of PHP 8.4 ([#10](https://github.com/webalternatif/flysystem-dsn/pull/10))
 
 ## v0.5.1 (May 6, 2024)
 
