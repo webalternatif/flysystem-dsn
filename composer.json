@@ -12,22 +12,22 @@
         }
     ],
     "require": {
-        "php": "8.0.* || 8.1.* || 8.2.* || 8.3.*",
+        "php": "8.2.* || 8.3.* || 8.4.*",
         "league/flysystem": "^3.0",
         "nyholm/dsn": "^2.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.0",
-        "infection/infection": "^0.24.0",
+        "infection/infection": "^0.29.10",
         "league/flysystem-aws-s3-v3": "^3.0",
         "league/flysystem-ftp": "^3.0",
         "league/flysystem-memory": "^3.0",
         "league/flysystem-sftp-v3": "^3.0",
         "php-opencloud/openstack": "^3.2",
         "phpunit/phpunit": "^9.5",
-        "vimeo/psalm": "^5.24",
-        "webalternatif/flysystem-failover-bundle": "^0.4.0",
-        "webalternatif/flysystem-openstack-swift": "^0.3.0"
+        "vimeo/psalm": "^6.5",
+        "webalternatif/flysystem-failover-bundle": "^0.5.1",
+        "webalternatif/flysystem-openstack-swift": "^0.4.0"
     },
     "suggest": {
         "league/flysystem-aws-s3-v3": "To use AwsS3AdapterFactory",

@@ -7,7 +7,7 @@
 [![Test status](https://img.shields.io/github/actions/workflow/status/webalternatif/flysystem-dsn/test.yml?branch=main&label=tests)](https://github.com/webalternatif/flysystem-dsn/actions/workflows/test.yml)
 [![Psalm coverage](https://shepherd.dev/github/webalternatif/flysystem-dsn/coverage.svg)](https://psalm.dev)
 [![Psalm level](https://shepherd.dev/github/webalternatif/flysystem-dsn/level.svg)](https://psalm.dev)
-[![Infection MSI](https://badge.stryker-mutator.io/github.com/webalternatif/flysystem-dsn/main)](https://infection.github.io)
+[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fwebalternatif%2Fflysystem-dsn%2Fmain)](https://dashboard.stryker-mutator.io/reports/github.com/webalternatif/flysystem-dsn/main)
 
 A set of factories to build [Flysystem][1] adapters from DSN.
 
