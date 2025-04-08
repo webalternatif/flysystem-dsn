@@ -46,8 +46,8 @@ class AwsS3AdapterFactory implements FlysystemAdapterFactoryInterface
             'region' => $region,
             'version' => $dsn->getParameter('version', 'latest')
         ];
-        
-        if (!empty($dsn->getUser()) && !empty($dsn->getPassword())) {
+
+        if (!is_null($dsn->getUser()) && !is_null($dsn->getPassword())) {
             $clientParameters['credentials'] = [
                 'key' => $dsn->getUser(),
                 'secret' => $dsn->getPassword(),
@@ -56,7 +56,7 @@ class AwsS3AdapterFactory implements FlysystemAdapterFactoryInterface
 
         return new AwsS3V3Adapter(
             new S3Client(
-                $clientOptions,
+                $clientParameters,
             ),
             $bucket
         );
