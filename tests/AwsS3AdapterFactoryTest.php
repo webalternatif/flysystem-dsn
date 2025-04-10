@@ -96,6 +96,36 @@ class AwsS3AdapterFactoryTest extends TestCase
             ],
             'bucket',
         ];
+
+        yield 'without credentials' => [
+            's3://host?region=region&bucket=bucket',
+            [
+                'endpoint' => 'https://host',
+                'region' => 'region',
+                'version' => 'latest',
+            ],
+            'bucket',
+        ];
+
+        yield 'without password' => [
+            's3://user@host?region=region&bucket=bucket',
+            [
+                'endpoint' => 'https://host',
+                'region' => 'region',
+                'version' => 'latest',
+            ],
+            'bucket',
+        ];
+
+        yield 'without user' => [
+            's3://:pass@host?region=region&bucket=bucket',
+            [
+                'endpoint' => 'https://host',
+                'region' => 'region',
+                'version' => 'latest',
+            ],
+            'bucket',
+        ];
     }
 
     /**
