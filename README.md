@@ -50,6 +50,8 @@ $adapter = $factory->createAdapter($dsn);
 
 * Use `s3+http://` if the endpoint does not support https.
 * `s3://` is equivalent to `s3+https://`.
+* `username` is the access key id.
+* `password` is the secret access key.
 
 #### Optional DSN parameters
 
