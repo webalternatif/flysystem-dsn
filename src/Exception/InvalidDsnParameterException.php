@@ -14,7 +14,7 @@ class InvalidDsnParameterException extends InvalidArgumentException
     public static function create(
         string $message,
         string $parameter,
-        string $dsn
+        string $dsn,
     ): self {
         return new InvalidDsnParameterException(sprintf(
             'Parameter "%s" is invalid in DSN "%s": %s.',

@@ -17,6 +17,7 @@ use Webf\FlysystemFailoverBundle\MessageRepository\MessageRepositoryInterface;
 
 /**
  * @internal
+ *
  * @covers \Webf\Flysystem\Dsn\FlysystemAdapterFactory
  */
 class FlysystemAdapterFactoryTest extends TestCase

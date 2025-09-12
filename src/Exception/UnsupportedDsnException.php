@@ -15,7 +15,7 @@ class UnsupportedDsnException extends InvalidArgumentException
 
     public static function create(
         FlysystemAdapterFactoryInterface $factory,
-        string $dsn
+        string $dsn,
     ): self {
         return new UnsupportedDsnException(sprintf(
             'Factory "%s" does not support DSN "%s".',

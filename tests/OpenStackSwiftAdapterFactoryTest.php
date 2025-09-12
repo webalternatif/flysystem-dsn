@@ -14,6 +14,7 @@ use Webf\Flysystem\OpenStackSwift\OpenStackSwiftAdapter;
 
 /**
  * @internal
+ *
  * @covers \Webf\Flysystem\Dsn\OpenStackSwiftAdapterFactory
  */
 class OpenStackSwiftAdapterFactoryTest extends TestCase
