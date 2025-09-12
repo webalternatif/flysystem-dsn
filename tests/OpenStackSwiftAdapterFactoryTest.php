@@ -21,13 +21,13 @@ class OpenStackSwiftAdapterFactoryTest extends TestCase
     /**
      * @dataProvider create_adapter_data_provider
      */
-    public function test_create_adapter(string $dsn, array $options, string $container): void
+    public function test_create_adapter(string $dsn, array $options, string $container, ?string $tempUrlKey = null): void
     {
         $factory = new OpenStackSwiftAdapterFactory();
         $adapter = $factory->createAdapter($dsn);
 
         $this->assertEquals(
-            new OpenStackSwiftAdapter(new OpenStack($options), $container),
+            new OpenStackSwiftAdapter(new OpenStack($options), $container, $tempUrlKey),
             $adapter
         );
     }
@@ -221,6 +221,21 @@ class OpenStackSwiftAdapterFactoryTest extends TestCase
                 ],
             ],
             'container',
+        ];
+
+        yield 'with temporary url key' => [
+            'swift://username:password@host?region=region&container=container&temp_url_key=secret',
+            [
+                'authUrl' => 'https://host',
+                'region' => 'region',
+                'user' => [
+                    'name' => 'username',
+                    'password' => 'password',
+                    'domain' => ['id' => 'default'],
+                ],
+            ],
+            'container',
+            'secret',
         ];
     }
 

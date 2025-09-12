@@ -1,3 +1,9 @@
+## v0.6.1 (unreleased)
+
+### ✨ New features
+
+* Add the `temp_url_key` option to `OpenStackSwiftAdapterFactory`
+
 ## v0.6.0 (February 8, 2025)
 
 ### 💥 Breaking changes
