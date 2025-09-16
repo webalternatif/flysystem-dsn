@@ -12,8 +12,8 @@ use Nyholm\Dsn\Configuration\Dsn;
 use Nyholm\Dsn\DsnParser;
 use Nyholm\Dsn\Exception\FunctionsNotAllowedException;
 use Nyholm\Dsn\Exception\InvalidDsnException as NyholmInvalidDsnException;
-use Webf\Flysystem\Dsn\Exception\InvalidDsnException;
-use Webf\Flysystem\Dsn\Exception\InvalidDsnParameterException;
+use Webf\Flysystem\Dsn\Exception\DsnException;
+use Webf\Flysystem\Dsn\Exception\DsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 
 class FtpAdapterFactory implements FlysystemAdapterFactoryInterface
@@ -30,7 +30,7 @@ class FtpAdapterFactory implements FlysystemAdapterFactoryInterface
         try {
             $dsn = DsnParser::parse($dsn);
         } catch (NyholmInvalidDsnException $e) {
-            throw new InvalidDsnException($e->getMessage(), previous: $e);
+            throw new DsnException($e->getMessage(), previous: $e);
         }
 
         if ('ftp' !== $dsn->getScheme()) {
@@ -39,13 +39,13 @@ class FtpAdapterFactory implements FlysystemAdapterFactoryInterface
 
         $transferMode = $this->getStringParameter($dsn, 'transfer_mode') ?? self::TRANSFER_MODE_BINARY;
         if (!in_array($transferMode, [self::TRANSFER_MODE_ASCII, self::TRANSFER_MODE_BINARY])) {
-            throw InvalidDsnParameterException::create(sprintf('must be "%s" or "%s"', self::TRANSFER_MODE_ASCII, self::TRANSFER_MODE_BINARY), 'transfer_mode', $dsnString);
+            throw DsnParameterException::invalidParameter(sprintf('must be "%s" or "%s"', self::TRANSFER_MODE_ASCII, self::TRANSFER_MODE_BINARY), 'transfer_mode', $dsnString);
         }
         $transferMode = self::TRANSFER_MODE_ASCII === $transferMode ? FTP_ASCII : FTP_BINARY;
 
         $systemType = $this->getStringParameter($dsn, 'system_type');
         if (null !== $systemType && !in_array($systemType, [self::SYSTEM_TYPE_UNIX, self::SYSTEM_TYPE_WINDOWS])) {
-            throw InvalidDsnParameterException::create(sprintf('must be "%s" or "%s"', self::SYSTEM_TYPE_UNIX, self::SYSTEM_TYPE_WINDOWS), 'system_type', $dsnString);
+            throw DsnParameterException::invalidParameter(sprintf('must be "%s" or "%s"', self::SYSTEM_TYPE_UNIX, self::SYSTEM_TYPE_WINDOWS), 'system_type', $dsnString);
         }
 
         $publicFilePermission = $this->getPermissionParameter($dsn, 'public_file_permission');
@@ -55,7 +55,7 @@ class FtpAdapterFactory implements FlysystemAdapterFactoryInterface
 
         $defaultDirVisibility = $this->getStringParameter($dsn, 'default_dir_visibility') ?? Visibility::PRIVATE;
         if (!in_array($defaultDirVisibility, [Visibility::PUBLIC, Visibility::PRIVATE])) {
-            throw InvalidDsnParameterException::create(sprintf('must be "%s" or "%s"', Visibility::PUBLIC, Visibility::PRIVATE), 'default_dir_visibility', $dsnString);
+            throw DsnParameterException::invalidParameter(sprintf('must be "%s" or "%s"', Visibility::PUBLIC, Visibility::PRIVATE), 'default_dir_visibility', $dsnString);
         }
 
         $ignorePassiveAddress = $this->getStringParameter($dsn, 'ignore_passive_address');
@@ -108,7 +108,7 @@ class FtpAdapterFactory implements FlysystemAdapterFactoryInterface
         } catch (FunctionsNotAllowedException) {
             return false;
         } catch (NyholmInvalidDsnException $e) {
-            throw new InvalidDsnException($e->getMessage(), previous: $e);
+            throw new DsnException($e->getMessage(), previous: $e);
         }
 
         return 'ftp' === $scheme;
@@ -137,7 +137,7 @@ class FtpAdapterFactory implements FlysystemAdapterFactoryInterface
     }
 
     /**
-     * @throws InvalidDsnParameterException
+     * @throws DsnParameterException
      */
     private function getPermissionParameter(Dsn $dsn, string $parameter): ?int
     {
@@ -146,7 +146,7 @@ class FtpAdapterFactory implements FlysystemAdapterFactoryInterface
         }
 
         if (!preg_match('/^[0-9]{3,4}$/', $value)) {
-            throw InvalidDsnParameterException::create('must be of length 3 or 4', $parameter, $dsn->__toString());
+            throw DsnParameterException::invalidParameter('must be of length 3 or 4', $parameter, $dsn->__toString());
         }
 
         return intval($value, 8);

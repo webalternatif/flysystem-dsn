@@ -9,14 +9,15 @@ use League\Flysystem\Ftp\FtpConnectionOptions;
 use League\Flysystem\UnixVisibility\PortableVisibilityConverter;
 use League\Flysystem\Visibility;
 use PHPUnit\Framework\TestCase;
-use Webf\Flysystem\Dsn\Exception\InvalidDsnException;
-use Webf\Flysystem\Dsn\Exception\InvalidDsnParameterException;
+use Webf\Flysystem\Dsn\Exception\DsnException;
+use Webf\Flysystem\Dsn\Exception\DsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 use Webf\Flysystem\Dsn\FtpAdapterFactory;
 
 /**
  * @internal
  *
+ * @covers \Webf\Flysystem\Dsn\Exception\DsnParameterException
  * @covers \Webf\Flysystem\Dsn\FtpAdapterFactory
  */
 class FtpAdapterFactoryTest extends TestCase
@@ -217,7 +218,7 @@ class FtpAdapterFactoryTest extends TestCase
     {
         $factory = new FtpAdapterFactory();
 
-        $this->expectException(InvalidDsnException::class);
+        $this->expectException(DsnException::class);
 
         $factory->createAdapter('Invalid DSN');
     }
@@ -257,7 +258,7 @@ class FtpAdapterFactoryTest extends TestCase
     {
         $factory = new FtpAdapterFactory();
 
-        $this->expectException(InvalidDsnParameterException::class);
+        $this->expectException(DsnParameterException::class);
 
         $factory->createAdapter('ftp://username:password@host?transfer_mode=string');
     }
@@ -266,7 +267,7 @@ class FtpAdapterFactoryTest extends TestCase
     {
         $factory = new FtpAdapterFactory();
 
-        $this->expectException(InvalidDsnParameterException::class);
+        $this->expectException(DsnParameterException::class);
 
         $factory->createAdapter('ftp://username:password@host?system_type=macos');
     }
@@ -282,15 +283,15 @@ class FtpAdapterFactoryTest extends TestCase
             $factory->createAdapter("ftp://username:password@host?{$parameter}={$permission}");
             $this->fail(sprintf(
                 'Failed asserting that exception of type "%s" is thrown.',
-                InvalidDsnParameterException::class
+                DsnParameterException::class
             ));
-        } catch (InvalidDsnParameterException) {
+        } catch (DsnParameterException) {
             $this->addToAssertionCount(1);
         } catch (\Throwable $t) {
             $this->fail(sprintf(
                 'Failed asserting that exception of type "%s" matches expected exception "%s".',
                 get_class($t),
-                InvalidDsnParameterException::class
+                DsnParameterException::class
             ));
         }
     }
@@ -317,7 +318,7 @@ class FtpAdapterFactoryTest extends TestCase
     {
         $factory = new FtpAdapterFactory();
 
-        $this->expectException(InvalidDsnParameterException::class);
+        $this->expectException(DsnParameterException::class);
 
         $factory->createAdapter('ftp://username:password@host?default_dir_visibility=0755');
     }
@@ -338,7 +339,7 @@ class FtpAdapterFactoryTest extends TestCase
     {
         $factory = new FtpAdapterFactory();
 
-        $this->expectException(InvalidDsnException::class);
+        $this->expectException(DsnException::class);
 
         $factory->supports('Invalid DSN');
     }

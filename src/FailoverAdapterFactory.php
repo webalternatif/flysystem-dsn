@@ -6,8 +6,8 @@ namespace Webf\Flysystem\Dsn;
 
 use Nyholm\Dsn\DsnParser;
 use Nyholm\Dsn\Exception\InvalidDsnException as NyholmInvalidDsnException;
-use Webf\Flysystem\Dsn\Exception\InvalidDsnException;
-use Webf\Flysystem\Dsn\Exception\MissingDsnParameterException;
+use Webf\Flysystem\Dsn\Exception\DsnException;
+use Webf\Flysystem\Dsn\Exception\DsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 use Webf\FlysystemFailoverBundle\Flysystem\FailoverAdapter;
 use Webf\FlysystemFailoverBundle\Flysystem\InnerAdapter;
@@ -27,7 +27,7 @@ class FailoverAdapterFactory implements FlysystemAdapterFactoryInterface
         try {
             $dsn = DsnParser::parseFunc($dsn);
         } catch (NyholmInvalidDsnException $e) {
-            throw new InvalidDsnException($e->getMessage(), previous: $e);
+            throw new DsnException($e->getMessage(), previous: $e);
         }
 
         if ('failover' !== $dsn->getName()) {
@@ -35,11 +35,11 @@ class FailoverAdapterFactory implements FlysystemAdapterFactoryInterface
         }
 
         if (!is_string($name = $dsn->getParameter('name'))) {
-            throw MissingDsnParameterException::create('name', $dsnString);
+            throw DsnParameterException::missingParameter('name', $dsnString);
         }
 
         if (count($arguments = $dsn->getArguments()) < 2) {
-            throw MissingDsnParameterException::create('second argument', $dsnString);
+            throw DsnParameterException::missingArgument(2, count($arguments), 'failover', $dsnString);
         }
 
         $adapters = [];
@@ -70,7 +70,7 @@ class FailoverAdapterFactory implements FlysystemAdapterFactoryInterface
         try {
             $name = DsnParser::parseFunc($dsn)->getName() ?: '';
         } catch (NyholmInvalidDsnException $e) {
-            throw new InvalidDsnException($e->getMessage(), previous: $e);
+            throw new DsnException($e->getMessage(), previous: $e);
         }
 
         return 'failover' === $name;

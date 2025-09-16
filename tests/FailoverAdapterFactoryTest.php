@@ -7,8 +7,8 @@ namespace Tests\Webf\Flysystem\Dsn;
 use PHPUnit\Framework\TestCase;
 use Tests\Webf\Flysystem\Dsn\Stub\AdapterFactoryStub;
 use Tests\Webf\Flysystem\Dsn\Stub\AdapterStub;
-use Webf\Flysystem\Dsn\Exception\InvalidDsnException;
-use Webf\Flysystem\Dsn\Exception\MissingDsnParameterException;
+use Webf\Flysystem\Dsn\Exception\DsnException;
+use Webf\Flysystem\Dsn\Exception\DsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 use Webf\Flysystem\Dsn\FailoverAdapterFactory;
 use Webf\FlysystemFailoverBundle\Flysystem\FailoverAdapter;
@@ -18,6 +18,7 @@ use Webf\FlysystemFailoverBundle\MessageRepository\MessageRepositoryInterface;
 /**
  * @internal
  *
+ * @covers \Webf\Flysystem\Dsn\Exception\DsnParameterException
  * @covers \Webf\Flysystem\Dsn\FailoverAdapterFactory
  */
 class FailoverAdapterFactoryTest extends TestCase
@@ -77,7 +78,7 @@ class FailoverAdapterFactoryTest extends TestCase
             $this->createMock(MessageRepositoryInterface::class)
         );
 
-        $this->expectException(MissingDsnParameterException::class);
+        $this->expectException(DsnParameterException::class);
 
         $factory->createAdapter('failover(stub://inner1 stub://inner2)');
     }
@@ -89,7 +90,8 @@ class FailoverAdapterFactoryTest extends TestCase
             $this->createMock(MessageRepositoryInterface::class)
         );
 
-        $this->expectException(MissingDsnParameterException::class);
+        $this->expectException(DsnParameterException::class);
+        $this->expectExceptionMessage('at least 2 arguments');
 
         $factory->createAdapter('failover(stub://inner1)?name=name');
     }
@@ -101,7 +103,7 @@ class FailoverAdapterFactoryTest extends TestCase
             $this->createMock(MessageRepositoryInterface::class)
         );
 
-        $this->expectException(InvalidDsnException::class);
+        $this->expectException(DsnException::class);
 
         $factory->createAdapter('Invalid DSN');
     }
@@ -137,7 +139,7 @@ class FailoverAdapterFactoryTest extends TestCase
             $this->createMock(MessageRepositoryInterface::class)
         );
 
-        $this->expectException(InvalidDsnException::class);
+        $this->expectException(DsnException::class);
 
         $factory->supports('Invalid DSN');
     }

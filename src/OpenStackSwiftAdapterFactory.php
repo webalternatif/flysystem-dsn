@@ -9,8 +9,8 @@ use Nyholm\Dsn\DsnParser;
 use Nyholm\Dsn\Exception\FunctionsNotAllowedException;
 use Nyholm\Dsn\Exception\InvalidDsnException as NyholmInvalidDsnException;
 use OpenStack\OpenStack;
-use Webf\Flysystem\Dsn\Exception\InvalidDsnException;
-use Webf\Flysystem\Dsn\Exception\MissingDsnParameterException;
+use Webf\Flysystem\Dsn\Exception\DsnException;
+use Webf\Flysystem\Dsn\Exception\DsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 use Webf\Flysystem\OpenStackSwift\OpenStackSwiftAdapter;
 
@@ -22,7 +22,7 @@ class OpenStackSwiftAdapterFactory implements FlysystemAdapterFactoryInterface
         try {
             $dsn = DsnParser::parse($dsn);
         } catch (NyholmInvalidDsnException $e) {
-            throw new InvalidDsnException($e->getMessage(), previous: $e);
+            throw new DsnException($e->getMessage(), previous: $e);
         }
 
         $matches = [];
@@ -31,11 +31,11 @@ class OpenStackSwiftAdapterFactory implements FlysystemAdapterFactoryInterface
         }
 
         if (!is_string($region = $dsn->getParameter('region'))) {
-            throw MissingDsnParameterException::create('region', $dsnString);
+            throw DsnParameterException::missingParameter('region', $dsnString);
         }
 
         if (!is_string($container = $dsn->getParameter('container'))) {
-            throw MissingDsnParameterException::create('container', $dsnString);
+            throw DsnParameterException::missingParameter('container', $dsnString);
         }
 
         $userId = $this->getStringParameter($dsn, 'user_id');
@@ -65,7 +65,7 @@ class OpenStackSwiftAdapterFactory implements FlysystemAdapterFactoryInterface
             $options['user']['name'] = $userName;
         } else {
             if (null === $userId) {
-                throw MissingDsnParameterException::create('username or user_id', $dsnString);
+                throw DsnParameterException::missingParameter('username or user_id', $dsnString);
             }
         }
 
@@ -117,7 +117,7 @@ class OpenStackSwiftAdapterFactory implements FlysystemAdapterFactoryInterface
         } catch (FunctionsNotAllowedException) {
             return false;
         } catch (NyholmInvalidDsnException $e) {
-            throw new InvalidDsnException($e->getMessage(), previous: $e);
+            throw new DsnException($e->getMessage(), previous: $e);
         }
 
         return 1 === preg_match('/^swift(?:\+(https?))?$/', $scheme);
