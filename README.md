@@ -67,8 +67,8 @@ $adapter = $factory->createAdapter($dsn);
 | DSN           | `failover(inner1:// inner2:// ...)?name=name`                     |
 |               |                                                                   |
 
-* There must be at least 2 DSN arguments for the failover DSN function.
-* The `name` parameter is used for the failover adapter's name in failover bundle (used to identify adapters in Symfony commands).
+* There must be at least two DSN arguments for the failover DSN function.
+* The `name` parameter is used for the failover adapter's name in the failover bundle (used to identify adapters in Symfony commands).
 * For each inner DSN, you can specify a `time_shift` parameter (see [configuration section][111] of the failover bundle for more info). This parameter is removed from the inner DSN when it's built.
 
 ### Ftp
@@ -82,19 +82,19 @@ $adapter = $factory->createAdapter($dsn);
 |               |                                                   |
 
 * Port is optional and defaults to `21`
-* If path contains spaces, replace each one by `%20`.
+* If the path contains spaces, replace each one by `%20`.
 
 #### Optional DSN parameters
 
 * `ssl`: whether to use [`ftp_ssl_connect`][121] instead of [`ftp_connect`][122] (default: `false`)
-* `timeout`: timeout for all subsequent network operations (default: `90`)
+* `timeout`: timeout for all network operations (default: `90`)
 * `utf8`: whether to enable the UTF-8 mode or not (default: `false`)
 * `passive`: whether to enable the passive mode or not (default: `true`)
 * `transfer_mode`: transfer mode used for [`ftp_fget`][123] and [`ftp_fput`][124] calls (must be `ascii` or `binary`, default: `binary`)
 * `system_type`: system type of the ftp server (must be `unix` or `windows`)
 * `ignore_passive_address`: whether to set the [`FTP_USEPASVADDRESS`][125] option to the opposite
 * `timestamps_on_unix_listings`: whether to set last modified in metadata or not for unix systems (default: `false`)
-* `recurse_manually`: whether to recurse directories "manually" instead of using FTP option when the `$deep` parameter of `listContents()` is set to `true` (default: `false`)
+* `recurse_manually`: whether to recurse directories "manually" instead of using the FTP option when the `$deep` parameter of `listContents()` is set to `true` (default: `false`)
 * `public_file_permission`: unix permission for public files (default: `0644`)
 * `private_file_permission`: unix permission for public files (default: `0600`)
 * `public_dir_permission`: unix permission for public files (default: `0755`)
@@ -124,7 +124,7 @@ $adapter = $factory->createAdapter($dsn);
 | DSN           | `local://absolute_or_relative_path`      |
 |               |                                          |
 
-* If path contains spaces, replace each one by `%20`.
+* If the path contains spaces, replace each one by `%20`.
 
 #### Optional DSN parameters
 
@@ -186,7 +186,7 @@ $adapter = $factory->createAdapter($dsn);
 
 * The password can be empty if the `private_key` parameter is defined.
 * Port is optional and defaults to `22`
-* If path contains spaces, replace each one by `%20`.
+* If the path contains spaces, replace each one by `%20`.
 
 #### Optional DSN parameters
 
