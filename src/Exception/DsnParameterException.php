@@ -50,4 +50,20 @@ class DsnParameterException extends InvalidArgumentException
             $dsn,
         ));
     }
+
+    public static function toManyArguments(
+        int $maxArgumentCount,
+        int $actualArgumentCount,
+        string $dsnName,
+        string $dsn,
+    ): self {
+        return new DsnParameterException(sprintf(
+            'There must not be more than %s argument%s in DSN "%s", %d given in "%s".',
+            $maxArgumentCount,
+            $maxArgumentCount > 1 ? 's' : '',
+            $dsnName,
+            $actualArgumentCount,
+            $dsn,
+        ));
+    }
 }
