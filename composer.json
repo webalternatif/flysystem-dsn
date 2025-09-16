@@ -27,10 +27,7 @@
         "phpunit/phpunit": "^9.5",
         "vimeo/psalm": "6.5.*",
         "webalternatif/flysystem-failover-bundle": "^0.5.1",
-        "webalternatif/flysystem-openstack-swift": "dev-temporary-urls"
-    },
-    "conflict": {
-        "webalternatif/flysystem-openstack-swift": "<0.5.0"
+        "webalternatif/flysystem-openstack-swift": "^0.5.0"
     },
     "suggest": {
         "league/flysystem-aws-s3-v3": "To use AwsS3AdapterFactory",
