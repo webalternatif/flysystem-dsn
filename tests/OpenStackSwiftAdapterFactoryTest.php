@@ -6,8 +6,8 @@ namespace Tests\Webf\Flysystem\Dsn;
 
 use OpenStack\OpenStack;
 use PHPUnit\Framework\TestCase;
-use Webf\Flysystem\Dsn\Exception\InvalidDsnException;
-use Webf\Flysystem\Dsn\Exception\MissingDsnParameterException;
+use Webf\Flysystem\Dsn\Exception\DsnException;
+use Webf\Flysystem\Dsn\Exception\DsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 use Webf\Flysystem\Dsn\OpenStackSwiftAdapterFactory;
 use Webf\Flysystem\OpenStackSwift\OpenStackSwiftAdapter;
@@ -15,6 +15,7 @@ use Webf\Flysystem\OpenStackSwift\OpenStackSwiftAdapter;
 /**
  * @internal
  *
+ * @covers \Webf\Flysystem\Dsn\Exception\DsnParameterException
  * @covers \Webf\Flysystem\Dsn\OpenStackSwiftAdapterFactory
  */
 class OpenStackSwiftAdapterFactoryTest extends TestCase
@@ -247,7 +248,7 @@ class OpenStackSwiftAdapterFactoryTest extends TestCase
     {
         $factory = new OpenStackSwiftAdapterFactory();
 
-        $this->expectException(MissingDsnParameterException::class);
+        $this->expectException(DsnParameterException::class);
 
         $factory->createAdapter($dsn);
     }
@@ -263,7 +264,7 @@ class OpenStackSwiftAdapterFactoryTest extends TestCase
     {
         $factory = new OpenStackSwiftAdapterFactory();
 
-        $this->expectException(InvalidDsnException::class);
+        $this->expectException(DsnException::class);
 
         $factory->createAdapter('Invalid DSN');
     }
@@ -313,7 +314,7 @@ class OpenStackSwiftAdapterFactoryTest extends TestCase
     {
         $factory = new OpenStackSwiftAdapterFactory();
 
-        $this->expectException(InvalidDsnException::class);
+        $this->expectException(DsnException::class);
 
         $factory->supports('Invalid DSN');
     }

@@ -7,7 +7,7 @@ namespace Webf\Flysystem\Dsn;
 use League\Flysystem\FilesystemAdapter;
 use Nyholm\Dsn\DsnParser;
 use Nyholm\Dsn\Exception\InvalidDsnException as NyholmInvalidDsnException;
-use Webf\Flysystem\Dsn\Exception\InvalidDsnException;
+use Webf\Flysystem\Dsn\Exception\DsnException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 
 class FlysystemAdapterFactory implements FlysystemAdapterFactoryInterface
@@ -24,7 +24,7 @@ class FlysystemAdapterFactory implements FlysystemAdapterFactoryInterface
         try {
             DsnParser::parseFunc($dsn);
         } catch (NyholmInvalidDsnException $e) {
-            throw new InvalidDsnException($e->getMessage(), previous: $e);
+            throw new DsnException($e->getMessage(), previous: $e);
         }
 
         foreach ($this->factories as $factory) {

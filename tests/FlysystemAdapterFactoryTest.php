@@ -6,7 +6,7 @@ namespace Tests\Webf\Flysystem\Dsn;
 
 use PHPUnit\Framework\TestCase;
 use Webf\Flysystem\Dsn\AwsS3AdapterFactory;
-use Webf\Flysystem\Dsn\Exception\InvalidDsnException;
+use Webf\Flysystem\Dsn\Exception\DsnException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 use Webf\Flysystem\Dsn\FailoverAdapterFactory;
 use Webf\Flysystem\Dsn\FlysystemAdapterFactory;
@@ -54,7 +54,7 @@ class FlysystemAdapterFactoryTest extends TestCase
     {
         $factory = new FlysystemAdapterFactory([]);
 
-        $this->expectException(InvalidDsnException::class);
+        $this->expectException(DsnException::class);
 
         $factory->createAdapter('Invalid DSN');
     }

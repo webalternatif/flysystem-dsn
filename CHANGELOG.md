@@ -1,8 +1,13 @@
-## v0.6.1 (unreleased)
+## v0.7.0 (unreleased)
+
+### 💥 Breaking changes
+
+* Refactor exceptions ([#16](https://github.com/webalternatif/flysystem-dsn/pull/16))
 
 ### ✨ New features
 
-* Add the `temp_url_key` option to `OpenStackSwiftAdapterFactory`
+* Add `ReadOnlyAdapterFactory` ([#16](https://github.com/webalternatif/flysystem-dsn/pull/16))
+* Add the `temp_url_key` option to `OpenStackSwiftAdapterFactory` ([#15](https://github.com/webalternatif/flysystem-dsn/pull/15))
 
 ## v0.6.0 (February 8, 2025)
 

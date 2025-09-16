@@ -9,8 +9,8 @@ use League\Flysystem\AwsS3V3\AwsS3V3Adapter;
 use Nyholm\Dsn\DsnParser;
 use Nyholm\Dsn\Exception\FunctionsNotAllowedException;
 use Nyholm\Dsn\Exception\InvalidDsnException as NyholmInvalidDsnException;
-use Webf\Flysystem\Dsn\Exception\InvalidDsnException;
-use Webf\Flysystem\Dsn\Exception\MissingDsnParameterException;
+use Webf\Flysystem\Dsn\Exception\DsnException;
+use Webf\Flysystem\Dsn\Exception\DsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 
 class AwsS3AdapterFactory implements FlysystemAdapterFactoryInterface
@@ -21,7 +21,7 @@ class AwsS3AdapterFactory implements FlysystemAdapterFactoryInterface
         try {
             $dsn = DsnParser::parse($dsn);
         } catch (NyholmInvalidDsnException $e) {
-            throw new InvalidDsnException($e->getMessage(), previous: $e);
+            throw new DsnException($e->getMessage(), previous: $e);
         }
 
         $matches = [];
@@ -30,11 +30,11 @@ class AwsS3AdapterFactory implements FlysystemAdapterFactoryInterface
         }
 
         if (!is_string($region = $dsn->getParameter('region'))) {
-            throw MissingDsnParameterException::create('region', $dsnString);
+            throw DsnParameterException::missingParameter('region', $dsnString);
         }
 
         if (!is_string($bucket = $dsn->getParameter('bucket'))) {
-            throw MissingDsnParameterException::create('bucket', $dsnString);
+            throw DsnParameterException::missingParameter('bucket', $dsnString);
         }
 
         $clientParameters = [
@@ -69,7 +69,7 @@ class AwsS3AdapterFactory implements FlysystemAdapterFactoryInterface
         } catch (FunctionsNotAllowedException) {
             return false;
         } catch (NyholmInvalidDsnException $e) {
-            throw new InvalidDsnException($e->getMessage(), previous: $e);
+            throw new DsnException($e->getMessage(), previous: $e);
         }
 
         return 1 === preg_match('/^s3(?:\+(https?))?$/', $scheme);

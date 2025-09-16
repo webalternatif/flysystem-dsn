@@ -9,7 +9,11 @@
 [![Psalm level](https://shepherd.dev/github/webalternatif/flysystem-dsn/level.svg)](https://psalm.dev)
 [![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fwebalternatif%2Fflysystem-dsn%2Fmain)](https://dashboard.stryker-mutator.io/reports/github.com/webalternatif/flysystem-dsn/main)
 
-A set of factories to build [Flysystem][1] adapters from DSN.
+A set of factories to build [Flysystem][1] adapters from DSN strings, like:
+* `s3://user:pass@endpoint?region=region&bucket=bucket` [↓](#aws-s3)
+* `local://some/path` [↓](#local)
+* `sftp://user@host:port/absolute/path?private_key=secret.pem` [↓](#sftp)
+* [and more...](#adapters)
 
 ## Installation
 
@@ -67,8 +71,8 @@ $adapter = $factory->createAdapter($dsn);
 | DSN           | `failover(inner1:// inner2:// ...)?name=name`                     |
 |               |                                                                   |
 
-* There must be at least 2 DSN arguments for the failover DSN function.
-* The `name` parameter is used for the failover adapter's name in failover bundle (used to identify adapters in Symfony commands).
+* There must be at least two DSN arguments for the failover DSN function.
+* The `name` parameter is used for the failover adapter's name in the failover bundle (used to identify adapters in Symfony commands).
 * For each inner DSN, you can specify a `time_shift` parameter (see [configuration section][111] of the failover bundle for more info). This parameter is removed from the inner DSN when it's built.
 
 ### Ftp
@@ -82,19 +86,19 @@ $adapter = $factory->createAdapter($dsn);
 |               |                                                   |
 
 * Port is optional and defaults to `21`
-* If path contains spaces, replace each one by `%20`.
+* If the path contains spaces, replace each one by `%20`.
 
 #### Optional DSN parameters
 
 * `ssl`: whether to use [`ftp_ssl_connect`][121] instead of [`ftp_connect`][122] (default: `false`)
-* `timeout`: timeout for all subsequent network operations (default: `90`)
+* `timeout`: timeout for all network operations (default: `90`)
 * `utf8`: whether to enable the UTF-8 mode or not (default: `false`)
 * `passive`: whether to enable the passive mode or not (default: `true`)
 * `transfer_mode`: transfer mode used for [`ftp_fget`][123] and [`ftp_fput`][124] calls (must be `ascii` or `binary`, default: `binary`)
 * `system_type`: system type of the ftp server (must be `unix` or `windows`)
 * `ignore_passive_address`: whether to set the [`FTP_USEPASVADDRESS`][125] option to the opposite
 * `timestamps_on_unix_listings`: whether to set last modified in metadata or not for unix systems (default: `false`)
-* `recurse_manually`: whether to recurse directories "manually" instead of using FTP option when the `$deep` parameter of `listContents()` is set to `true` (default: `false`)
+* `recurse_manually`: whether to recurse directories "manually" instead of using the FTP option when the `$deep` parameter of `listContents()` is set to `true` (default: `false`)
 * `public_file_permission`: unix permission for public files (default: `0644`)
 * `private_file_permission`: unix permission for public files (default: `0600`)
 * `public_dir_permission`: unix permission for public files (default: `0755`)
@@ -124,7 +128,7 @@ $adapter = $factory->createAdapter($dsn);
 | DSN           | `local://absolute_or_relative_path`      |
 |               |                                          |
 
-* If path contains spaces, replace each one by `%20`.
+* If the path contains spaces, replace each one by `%20`.
 
 #### Optional DSN parameters
 
@@ -162,19 +166,31 @@ $adapter = $factory->createAdapter($dsn);
 * `project_domain_name`: `auth.scope.project.domain.name` value sent to Keystone v3 API
 * `temp_url_key`: secret key used to generate temporary URLs (more information [here][151])
 
+### ReadOnly
+
+|               |                                                      |
+|---------------|------------------------------------------------------|
+| Inner adapter | [`league/flysystem-read-only`][16]                   |
+| Install       | [`composer require league/flysystem-read-only`][160] |
+| Factory class | `Webf\Flysystem\Dsn\ReadOnlyAdapterFactory`          |
+| DSN           | `readonly(inner://)`                                 |
+|               |                                                      |
+
+* There must be exactly one DSN argument for the readonly DSN function.
+
 ### Sftp
 
 |               |                                                    |
 |---------------|----------------------------------------------------|
-| Inner adapter | [`league/flysystem-sftp-v3`][16]                   |
-| Install       | [`composer require league/flysystem-sftp-v3`][160] |
+| Inner adapter | [`league/flysystem-sftp-v3`][17]                   |
+| Install       | [`composer require league/flysystem-sftp-v3`][170] |
 | Factory class | `Webf\Flysystem\Dsn\SftpAdapterFactory`            |
 | DSN           | `sftp://username:password@host:port/absolute/path` |
 |               |                                                    |
 
 * The password can be empty if the `private_key` parameter is defined.
 * Port is optional and defaults to `22`
-* If path contains spaces, replace each one by `%20`.
+* If the path contains spaces, replace each one by `%20`.
 
 #### Optional DSN parameters
 
@@ -231,5 +247,7 @@ composer cs-check
 [15]: https://github.com/webalternatif/flysystem-openstack-swift
 [150]: https://packagist.org/packages/webalternatif/flysystem-openstack-swift
 [151]: https://github.com/webalternatif/flysystem-openstack-swift#generating-temporary-urls
-[16]: https://github.com/thephpleague/flysystem-sftp-v3
-[160]: https://packagist.org/packages/league/flysystem-sftp-v3
+[16]: https://github.com/thephpleague/flysystem-read-only
+[160]: https://packagist.org/packages/league/flysystem-read-only
+[17]: https://github.com/thephpleague/flysystem-sftp-v3
+[170]: https://packagist.org/packages/league/flysystem-sftp-v3

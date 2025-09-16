@@ -7,14 +7,15 @@ namespace Tests\Webf\Flysystem\Dsn;
 use League\Flysystem\InMemory\InMemoryFilesystemAdapter;
 use League\Flysystem\Visibility;
 use PHPUnit\Framework\TestCase;
-use Webf\Flysystem\Dsn\Exception\InvalidDsnException;
-use Webf\Flysystem\Dsn\Exception\InvalidDsnParameterException;
+use Webf\Flysystem\Dsn\Exception\DsnException;
+use Webf\Flysystem\Dsn\Exception\DsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 use Webf\Flysystem\Dsn\InMemoryAdapterFactory;
 
 /**
  * @internal
  *
+ * @covers \Webf\Flysystem\Dsn\Exception\DsnParameterException
  * @covers \Webf\Flysystem\Dsn\InMemoryAdapterFactory
  */
 class InMemoryAdapterFactoryTest extends TestCase
@@ -38,7 +39,7 @@ class InMemoryAdapterFactoryTest extends TestCase
     {
         $factory = new InMemoryAdapterFactory();
 
-        $this->expectException(InvalidDsnException::class);
+        $this->expectException(DsnException::class);
 
         $factory->createAdapter('Invalid DSN');
     }
@@ -72,7 +73,7 @@ class InMemoryAdapterFactoryTest extends TestCase
     {
         $factory = new InMemoryAdapterFactory();
 
-        $this->expectException(InvalidDsnParameterException::class);
+        $this->expectException(DsnParameterException::class);
 
         $factory->createAdapter('in-memory://?default_visibility=0755');
     }
@@ -94,7 +95,7 @@ class InMemoryAdapterFactoryTest extends TestCase
     {
         $factory = new InMemoryAdapterFactory();
 
-        $this->expectException(InvalidDsnException::class);
+        $this->expectException(DsnException::class);
 
         $factory->supports('Invalid DSN');
     }

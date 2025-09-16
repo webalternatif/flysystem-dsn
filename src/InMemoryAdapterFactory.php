@@ -10,8 +10,8 @@ use Nyholm\Dsn\Configuration\Dsn;
 use Nyholm\Dsn\DsnParser;
 use Nyholm\Dsn\Exception\FunctionsNotAllowedException;
 use Nyholm\Dsn\Exception\InvalidDsnException as NyholmInvalidDsnException;
-use Webf\Flysystem\Dsn\Exception\InvalidDsnException;
-use Webf\Flysystem\Dsn\Exception\InvalidDsnParameterException;
+use Webf\Flysystem\Dsn\Exception\DsnException;
+use Webf\Flysystem\Dsn\Exception\DsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 
 class InMemoryAdapterFactory implements FlysystemAdapterFactoryInterface
@@ -22,7 +22,7 @@ class InMemoryAdapterFactory implements FlysystemAdapterFactoryInterface
         try {
             $dsn = DsnParser::parse($dsn);
         } catch (NyholmInvalidDsnException $e) {
-            throw new InvalidDsnException($e->getMessage(), previous: $e);
+            throw new DsnException($e->getMessage(), previous: $e);
         }
 
         if ('in-memory' !== $dsn->getScheme()) {
@@ -31,7 +31,7 @@ class InMemoryAdapterFactory implements FlysystemAdapterFactoryInterface
 
         $defaultVisibility = $this->getStringParameter($dsn, 'default_visibility') ?? Visibility::PUBLIC;
         if (!in_array($defaultVisibility, [Visibility::PUBLIC, Visibility::PRIVATE])) {
-            throw InvalidDsnParameterException::create(sprintf('must be "%s" or "%s"', Visibility::PUBLIC, Visibility::PRIVATE), 'default_visibility', $dsnString);
+            throw DsnParameterException::invalidParameter(sprintf('must be "%s" or "%s"', Visibility::PUBLIC, Visibility::PRIVATE), 'default_visibility', $dsnString);
         }
 
         return new InMemoryFilesystemAdapter($defaultVisibility);
@@ -44,7 +44,7 @@ class InMemoryAdapterFactory implements FlysystemAdapterFactoryInterface
         } catch (FunctionsNotAllowedException) {
             return false;
         } catch (NyholmInvalidDsnException $e) {
-            throw new InvalidDsnException($e->getMessage(), previous: $e);
+            throw new DsnException($e->getMessage(), previous: $e);
         }
 
         return 'in-memory' === $scheme;

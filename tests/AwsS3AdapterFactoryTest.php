@@ -9,14 +9,15 @@ use Aws\S3\S3ClientInterface;
 use League\Flysystem\AwsS3V3\AwsS3V3Adapter;
 use PHPUnit\Framework\TestCase;
 use Webf\Flysystem\Dsn\AwsS3AdapterFactory;
-use Webf\Flysystem\Dsn\Exception\InvalidDsnException;
-use Webf\Flysystem\Dsn\Exception\MissingDsnParameterException;
+use Webf\Flysystem\Dsn\Exception\DsnException;
+use Webf\Flysystem\Dsn\Exception\DsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 
 /**
  * @internal
  *
  * @covers \Webf\Flysystem\Dsn\AwsS3AdapterFactory
+ * @covers \Webf\Flysystem\Dsn\Exception\DsnParameterException
  */
 class AwsS3AdapterFactoryTest extends TestCase
 {
@@ -136,7 +137,7 @@ class AwsS3AdapterFactoryTest extends TestCase
     {
         $factory = new AwsS3AdapterFactory();
 
-        $this->expectException(MissingDsnParameterException::class);
+        $this->expectException(DsnParameterException::class);
 
         $factory->createAdapter($dsn);
     }
@@ -151,7 +152,7 @@ class AwsS3AdapterFactoryTest extends TestCase
     {
         $factory = new AwsS3AdapterFactory();
 
-        $this->expectException(InvalidDsnException::class);
+        $this->expectException(DsnException::class);
 
         $factory->createAdapter('Invalid DSN');
     }
@@ -201,7 +202,7 @@ class AwsS3AdapterFactoryTest extends TestCase
     {
         $factory = new AwsS3AdapterFactory();
 
-        $this->expectException(InvalidDsnException::class);
+        $this->expectException(DsnException::class);
 
         $factory->supports('Invalid DSN');
     }
