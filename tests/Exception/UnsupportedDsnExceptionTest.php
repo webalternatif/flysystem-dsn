@@ -10,6 +10,7 @@ use Webf\Flysystem\Dsn\FlysystemAdapterFactory;
 
 /**
  * @internal
+ *
  * @covers \Webf\Flysystem\Dsn\Exception\UnsupportedDsnException
  */
 class UnsupportedDsnExceptionTest extends TestCase

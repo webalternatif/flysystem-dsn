@@ -15,6 +15,7 @@ use Webf\Flysystem\Dsn\LocalAdapterFactory;
 
 /**
  * @internal
+ *
  * @covers \Webf\Flysystem\Dsn\LocalAdapterFactory
  */
 class LocalAdapterFactoryTest extends TestCase

@@ -9,6 +9,7 @@ use Webf\Flysystem\Dsn\Exception\UnableToCreateAdapterException;
 
 /**
  * @internal
+ *
  * @covers \Webf\Flysystem\Dsn\Exception\UnableToCreateAdapterException
  */
 class UnableToCreateAdapterExceptionTest extends TestCase

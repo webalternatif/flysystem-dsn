@@ -14,6 +14,7 @@ use Webf\Flysystem\Dsn\InMemoryAdapterFactory;
 
 /**
  * @internal
+ *
  * @covers \Webf\Flysystem\Dsn\InMemoryAdapterFactory
  */
 class InMemoryAdapterFactoryTest extends TestCase

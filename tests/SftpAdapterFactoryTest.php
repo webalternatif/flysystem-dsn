@@ -16,6 +16,7 @@ use Webf\Flysystem\Dsn\SftpAdapterFactory;
 
 /**
  * @internal
+ *
  * @covers \Webf\Flysystem\Dsn\SftpAdapterFactory
  */
 class SftpAdapterFactoryTest extends TestCase
@@ -192,6 +193,12 @@ class SftpAdapterFactoryTest extends TestCase
         );
     }
 
+    public function visibilityDataProvider(): iterable
+    {
+        yield 'public' => [Visibility::PUBLIC];
+        yield 'private' => [Visibility::PRIVATE];
+    }
+
     public function test_create_adapter_throws_exception_when_dsn_is_invalid(): void
     {
         $factory = new SftpAdapterFactory();
@@ -223,6 +230,14 @@ class SftpAdapterFactoryTest extends TestCase
                 UnsupportedDsnException::class
             ));
         }
+    }
+
+    public function unsupportedDsnDataProvider(): iterable
+    {
+        yield ['remote'];
+        yield ['ftp'];
+        yield ['ssftp'];
+        yield ['sftpp'];
     }
 
     /**
@@ -295,19 +310,5 @@ class SftpAdapterFactoryTest extends TestCase
         $this->expectException(InvalidDsnException::class);
 
         $factory->supports('Invalid DSN');
-    }
-
-    public function visibilityDataProvider(): iterable
-    {
-        yield 'public' => [Visibility::PUBLIC];
-        yield 'private' => [Visibility::PRIVATE];
-    }
-
-    public function unsupportedDsnDataProvider(): iterable
-    {
-        yield ['remote'];
-        yield ['ftp'];
-        yield ['ssftp'];
-        yield ['sftpp'];
     }
 }

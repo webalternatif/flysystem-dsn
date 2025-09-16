@@ -36,7 +36,7 @@ class AwsS3AdapterFactory implements FlysystemAdapterFactoryInterface
         if (!is_string($bucket = $dsn->getParameter('bucket'))) {
             throw MissingDsnParameterException::create('bucket', $dsnString);
         }
-        
+
         $clientParameters = [
             'endpoint' => sprintf(
                 '%s://%s',
@@ -44,7 +44,7 @@ class AwsS3AdapterFactory implements FlysystemAdapterFactoryInterface
                 ($dsn->getHost() ?? '') . ($dsn->getPath() ?? '')
             ),
             'region' => $region,
-            'version' => $dsn->getParameter('version', 'latest')
+            'version' => $dsn->getParameter('version', 'latest'),
         ];
 
         if (!is_null($dsn->getUser()) && !is_null($dsn->getPassword())) {

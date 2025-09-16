@@ -147,6 +147,7 @@ $adapter = $factory->createAdapter($dsn);
 * Use `swift+http://` if the endpoint does not support https.
 * `swift://` is equivalent to `swift+https://`.
 * `username` is optional if parameter `user_id` is present.
+* `temp_url_key` (see below) is required to be able to generate temporary URLs.
 
 #### Optional DSN parameters
 
@@ -159,6 +160,7 @@ $adapter = $factory->createAdapter($dsn);
 * `project_name`: `auth.scope.project.name` value sent to Keystone v3 API
 * `project_domain_id`: `auth.scope.project.domain.id` value sent to Keystone v3 API
 * `project_domain_name`: `auth.scope.project.domain.name` value sent to Keystone v3 API
+* `temp_url_key`: secret key used to generate temporary URLs (more information [here][151])
 
 ### Sftp
 
@@ -228,5 +230,6 @@ composer cs-check
 [14]: https://github.com/thephpleague/flysystem
 [15]: https://github.com/webalternatif/flysystem-openstack-swift
 [150]: https://packagist.org/packages/webalternatif/flysystem-openstack-swift
+[151]: https://github.com/webalternatif/flysystem-openstack-swift#generating-temporary-urls
 [16]: https://github.com/thephpleague/flysystem-sftp-v3
 [160]: https://packagist.org/packages/league/flysystem-sftp-v3

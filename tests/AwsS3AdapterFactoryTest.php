@@ -15,6 +15,7 @@ use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 
 /**
  * @internal
+ *
  * @covers \Webf\Flysystem\Dsn\AwsS3AdapterFactory
  */
 class AwsS3AdapterFactoryTest extends TestCase

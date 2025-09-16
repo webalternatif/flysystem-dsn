@@ -47,6 +47,7 @@ class OpenStackSwiftAdapterFactory implements FlysystemAdapterFactoryInterface
         $projectName = $this->getStringParameter($dsn, 'project_name');
         $projectDomainId = $this->getStringParameter($dsn, 'project_domain_id');
         $projectDomainName = $this->getStringParameter($dsn, 'project_domain_name');
+        $tempUrlKey = $this->getStringParameter($dsn, 'temp_url_key');
 
         $options = [
             'authUrl' => sprintf(
@@ -106,7 +107,7 @@ class OpenStackSwiftAdapterFactory implements FlysystemAdapterFactoryInterface
             $options['scope']['project']['domain']['name'] = $projectDomainName;
         }
 
-        return new OpenStackSwiftAdapter(new OpenStack($options), $container);
+        return new OpenStackSwiftAdapter(new OpenStack($options), $container, $tempUrlKey);
     }
 
     public function supports(string $dsn): bool

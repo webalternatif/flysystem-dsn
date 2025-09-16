@@ -9,6 +9,7 @@ use Webf\Flysystem\Dsn\Exception\InvalidDsnParameterException;
 
 /**
  * @internal
+ *
  * @covers \Webf\Flysystem\Dsn\Exception\InvalidDsnParameterException
  */
 class InvalidDsnParameterExceptionTest extends TestCase
