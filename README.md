@@ -9,7 +9,11 @@
 [![Psalm level](https://shepherd.dev/github/webalternatif/flysystem-dsn/level.svg)](https://psalm.dev)
 [![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fwebalternatif%2Fflysystem-dsn%2Fmain)](https://dashboard.stryker-mutator.io/reports/github.com/webalternatif/flysystem-dsn/main)
 
-A set of factories to build [Flysystem][1] adapters from DSN.
+A set of factories to build [Flysystem][1] adapters from DSN strings, like:
+* `s3://user:pass@endpoint?region=region&bucket=bucket` [↓](#aws-s3)
+* `local://some/path` [↓](#local)
+* `sftp://user@host:port/absolute/path?private_key=secret.pem` [↓](#sftp)
+* [and more...](#adapters)
 
 ## Installation
 
