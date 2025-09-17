@@ -14,8 +14,9 @@ use Webf\Flysystem\Dsn\Exception\DsnException;
 use Webf\Flysystem\Dsn\Exception\DsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 
-class InMemoryAdapterFactory implements FlysystemAdapterFactoryInterface
+final class InMemoryAdapterFactory implements FlysystemAdapterFactoryInterface
 {
+    #[\Override]
     public function createAdapter(string $dsn): InMemoryFilesystemAdapter
     {
         $dsnString = $dsn;
@@ -37,6 +38,7 @@ class InMemoryAdapterFactory implements FlysystemAdapterFactoryInterface
         return new InMemoryFilesystemAdapter($defaultVisibility);
     }
 
+    #[\Override]
     public function supports(string $dsn): bool
     {
         try {

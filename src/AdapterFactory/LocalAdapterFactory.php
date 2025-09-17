@@ -15,8 +15,9 @@ use Webf\Flysystem\Dsn\Exception\DsnException;
 use Webf\Flysystem\Dsn\Exception\DsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 
-class LocalAdapterFactory implements FlysystemAdapterFactoryInterface
+final class LocalAdapterFactory implements FlysystemAdapterFactoryInterface
 {
+    #[\Override]
     public function createAdapter(string $dsn): LocalFilesystemAdapter
     {
         $dsnString = $dsn;
@@ -60,6 +61,7 @@ class LocalAdapterFactory implements FlysystemAdapterFactoryInterface
         );
     }
 
+    #[\Override]
     public function supports(string $dsn): bool
     {
         try {

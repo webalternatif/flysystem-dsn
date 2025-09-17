@@ -10,7 +10,7 @@ use Nyholm\Dsn\Exception\InvalidDsnException as NyholmInvalidDsnException;
 use Webf\Flysystem\Dsn\Exception\DsnException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 
-class FlysystemAdapterFactory implements FlysystemAdapterFactoryInterface
+final readonly class FlysystemAdapterFactory implements FlysystemAdapterFactoryInterface
 {
     /**
      * @param iterable<FlysystemAdapterFactoryInterface> $factories
@@ -19,6 +19,7 @@ class FlysystemAdapterFactory implements FlysystemAdapterFactoryInterface
     {
     }
 
+    #[\Override]
     public function createAdapter(string $dsn): FilesystemAdapter
     {
         try {
@@ -36,6 +37,7 @@ class FlysystemAdapterFactory implements FlysystemAdapterFactoryInterface
         throw UnsupportedDsnException::create($this, $dsn);
     }
 
+    #[\Override]
     public function supports(string $dsn): bool
     {
         foreach ($this->factories as $factory) {

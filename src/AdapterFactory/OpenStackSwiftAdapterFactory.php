@@ -14,8 +14,9 @@ use Webf\Flysystem\Dsn\Exception\DsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 use Webf\Flysystem\OpenStackSwift\OpenStackSwiftAdapter;
 
-class OpenStackSwiftAdapterFactory implements FlysystemAdapterFactoryInterface
+final class OpenStackSwiftAdapterFactory implements FlysystemAdapterFactoryInterface
 {
+    #[\Override]
     public function createAdapter(string $dsn): OpenStackSwiftAdapter
     {
         $dsnString = $dsn;
@@ -110,6 +111,7 @@ class OpenStackSwiftAdapterFactory implements FlysystemAdapterFactoryInterface
         return new OpenStackSwiftAdapter(new OpenStack($options), $container, $tempUrlKey);
     }
 
+    #[\Override]
     public function supports(string $dsn): bool
     {
         try {

@@ -4,6 +4,7 @@
 
 * Refactor exceptions ([#16](https://github.com/webalternatif/flysystem-dsn/pull/16))
 * Move all adapter factories to the `Webf\Flysystem\Dsn\AdapterFactory` namespace ([#18](https://github.com/webalternatif/flysystem-dsn/pull/18))
+* Make classes final ([#19](https://github.com/webalternatif/flysystem-dsn/pull/19))
 
 ### ✨ New features
 

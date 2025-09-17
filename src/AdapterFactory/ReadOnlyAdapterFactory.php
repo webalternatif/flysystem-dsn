@@ -11,12 +11,13 @@ use Webf\Flysystem\Dsn\Exception\DsnException;
 use Webf\Flysystem\Dsn\Exception\DsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 
-readonly class ReadOnlyAdapterFactory implements FlysystemAdapterFactoryInterface
+final readonly class ReadOnlyAdapterFactory implements FlysystemAdapterFactoryInterface
 {
     public function __construct(private FlysystemAdapterFactoryInterface $adapterFactory)
     {
     }
 
+    #[\Override]
     public function createAdapter(string $dsn): ReadOnlyFilesystemAdapter
     {
         $dsnString = $dsn;
@@ -39,6 +40,7 @@ readonly class ReadOnlyAdapterFactory implements FlysystemAdapterFactoryInterfac
         return new ReadOnlyFilesystemAdapter($innerAdapter);
     }
 
+    #[\Override]
     public function supports(string $dsn): bool
     {
         try {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Webf\Flysystem\Dsn\Exception;
 
-class UnableToCreateAdapterException extends InvalidArgumentException
+final class UnableToCreateAdapterException extends InvalidArgumentException
 {
     private function __construct(string $message)
     {

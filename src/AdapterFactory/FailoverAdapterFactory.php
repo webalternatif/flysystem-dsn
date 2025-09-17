@@ -13,7 +13,7 @@ use Webf\FlysystemFailoverBundle\Flysystem\FailoverAdapter;
 use Webf\FlysystemFailoverBundle\Flysystem\InnerAdapter;
 use Webf\FlysystemFailoverBundle\MessageRepository\MessageRepositoryInterface;
 
-class FailoverAdapterFactory implements FlysystemAdapterFactoryInterface
+final readonly class FailoverAdapterFactory implements FlysystemAdapterFactoryInterface
 {
     public function __construct(
         private FlysystemAdapterFactoryInterface $adapterFactory,
@@ -21,6 +21,7 @@ class FailoverAdapterFactory implements FlysystemAdapterFactoryInterface
     ) {
     }
 
+    #[\Override]
     public function createAdapter(string $dsn): FailoverAdapter
     {
         $dsnString = $dsn;
@@ -65,6 +66,7 @@ class FailoverAdapterFactory implements FlysystemAdapterFactoryInterface
         return new FailoverAdapter($name, $adapters, $this->messageRepository);
     }
 
+    #[\Override]
     public function supports(string $dsn): bool
     {
         try {
