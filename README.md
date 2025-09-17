@@ -166,12 +166,25 @@ $adapter = $factory->createAdapter($dsn);
 * `project_domain_name`: `auth.scope.project.domain.name` value sent to Keystone v3 API
 * `temp_url_key`: secret key used to generate temporary URLs (more information [here][151])
 
+### Prefix
+
+|               |                                                           |
+|---------------|-----------------------------------------------------------|
+| Inner adapter | [`league/flysystem-path-prefixing`][16]                   |
+| Install       | [`composer require league/flysystem-path-prefixing`][160] |
+| Factory class | `Webf\Flysystem\Dsn\PrefixAdapterFactory`                 |
+| DSN           | `prefix(inner://)?path=some/prefix/path`                  |
+|               |                                                           |
+
+* There must be exactly one DSN argument for the prefix DSN function.
+* If the path contains spaces, replace each one by `%20`.
+
 ### ReadOnly
 
 |               |                                                      |
 |---------------|------------------------------------------------------|
-| Inner adapter | [`league/flysystem-read-only`][16]                   |
-| Install       | [`composer require league/flysystem-read-only`][160] |
+| Inner adapter | [`league/flysystem-read-only`][17]                   |
+| Install       | [`composer require league/flysystem-read-only`][170] |
 | Factory class | `Webf\Flysystem\Dsn\ReadOnlyAdapterFactory`          |
 | DSN           | `readonly(inner://)`                                 |
 |               |                                                      |
@@ -182,8 +195,8 @@ $adapter = $factory->createAdapter($dsn);
 
 |               |                                                    |
 |---------------|----------------------------------------------------|
-| Inner adapter | [`league/flysystem-sftp-v3`][17]                   |
-| Install       | [`composer require league/flysystem-sftp-v3`][170] |
+| Inner adapter | [`league/flysystem-sftp-v3`][18]                   |
+| Install       | [`composer require league/flysystem-sftp-v3`][180] |
 | Factory class | `Webf\Flysystem\Dsn\SftpAdapterFactory`            |
 | DSN           | `sftp://username:password@host:port/absolute/path` |
 |               |                                                    |
@@ -247,7 +260,9 @@ composer cs-check
 [15]: https://github.com/webalternatif/flysystem-openstack-swift
 [150]: https://packagist.org/packages/webalternatif/flysystem-openstack-swift
 [151]: https://github.com/webalternatif/flysystem-openstack-swift#generating-temporary-urls
-[16]: https://github.com/thephpleague/flysystem-read-only
-[160]: https://packagist.org/packages/league/flysystem-read-only
-[17]: https://github.com/thephpleague/flysystem-sftp-v3
-[170]: https://packagist.org/packages/league/flysystem-sftp-v3
+[16]: https://github.com/thephpleague/flysystem-path-prefixing
+[160]: https://packagist.org/packages/league/flysystem-path-prefixing
+[17]: https://github.com/thephpleague/flysystem-read-only
+[170]: https://packagist.org/packages/league/flysystem-read-only
+[18]: https://github.com/thephpleague/flysystem-sftp-v3
+[180]: https://packagist.org/packages/league/flysystem-sftp-v3
