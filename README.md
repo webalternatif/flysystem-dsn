@@ -119,6 +119,26 @@ $adapter = $factory->createAdapter($dsn);
 
 * `default_visibility`: default visibility of created files and directories (must be `public` or `private`, default: `public`)
 
+### Lazy
+
+This adapter allows deferring the creation of the inner adapter until it is
+actually used (i.e., when Flysystem's methods are called). This is useful when
+you don't want an adapter to be created, but you need to have it somewhere
+(e.g., in a service container), and the creation of the adapter is expensive
+(e.g., it makes a network request).
+
+The drawback is that you have to make sure the DSN of the inner adapter is
+valid, otherwise an exception will be thrown at "usage" time.
+
+|               |                                                        |
+|---------------|--------------------------------------------------------|
+| Inner adapter | `Webf\Flysystem\Dsn\Adapter\LazyAdapter`               |
+| Factory class | `Webf\Flysystem\Dsn\AdapterFactory\LazyAdapterFactory` |
+| DSN           | `lazy(inner://)`                                       |
+|               |                                                        |
+
+* There must be exactly one DSN argument for the lazy DSN function.
+
 ### Local
 
 |               |                                                         |

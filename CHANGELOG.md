@@ -7,9 +7,10 @@
 
 ### ✨ New features
 
+* Add the `temp_url_key` option to `OpenStackSwiftAdapterFactory` ([#15](https://github.com/webalternatif/flysystem-dsn/pull/15))
 * Add `ReadOnlyAdapterFactory` ([#16](https://github.com/webalternatif/flysystem-dsn/pull/16))
 * Add `PrefixAdapterFactory` ([#17](https://github.com/webalternatif/flysystem-dsn/pull/17))
-* Add the `temp_url_key` option to `OpenStackSwiftAdapterFactory` ([#15](https://github.com/webalternatif/flysystem-dsn/pull/15))
+* Add `LazyAdapterFactory`
 
 ## v0.6.0 (February 8, 2025)
 
