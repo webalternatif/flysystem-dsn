@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Tests\Webf\Flysystem\Dsn;
+namespace Tests\Webf\Flysystem\Dsn\AdapterFactory;
 
 use League\Flysystem\PathPrefixing\PathPrefixedAdapter;
 use PHPUnit\Framework\TestCase;
-use Tests\Webf\Flysystem\Dsn\Stub\AdapterFactoryStub;
-use Tests\Webf\Flysystem\Dsn\Stub\AdapterStub;
+use Tests\Webf\Flysystem\Dsn\AdapterFactory\Stub\AdapterFactoryStub;
+use Tests\Webf\Flysystem\Dsn\AdapterFactory\Stub\AdapterStub;
+use Webf\Flysystem\Dsn\AdapterFactory\PrefixAdapterFactory;
 use Webf\Flysystem\Dsn\Exception\DsnException;
 use Webf\Flysystem\Dsn\Exception\DsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
-use Webf\Flysystem\Dsn\PrefixAdapterFactory;
 
 /**
  * @internal
  *
+ * @covers \Webf\Flysystem\Dsn\AdapterFactory\PrefixAdapterFactory
  * @covers \Webf\Flysystem\Dsn\Exception\DsnParameterException
- * @covers \Webf\Flysystem\Dsn\PrefixAdapterFactory
  */
 class PrefixAdapterFactoryTest extends TestCase
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Webf\Flysystem\Dsn;
+namespace Webf\Flysystem\Dsn\AdapterFactory;
 
 use Nyholm\Dsn\Configuration\Dsn;
 use Nyholm\Dsn\DsnParser;

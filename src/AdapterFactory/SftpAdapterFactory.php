@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Webf\Flysystem\Dsn;
+namespace Webf\Flysystem\Dsn\AdapterFactory;
 
 use League\Flysystem\PhpseclibV3\SftpAdapter;
 use League\Flysystem\PhpseclibV3\SftpConnectionProvider;

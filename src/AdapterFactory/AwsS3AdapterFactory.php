@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Webf\Flysystem\Dsn;
+namespace Webf\Flysystem\Dsn\AdapterFactory;
 
 use Aws\S3\S3Client;
 use League\Flysystem\AwsS3V3\AwsS3V3Adapter;

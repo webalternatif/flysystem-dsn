@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Webf\Flysystem\Dsn;
+namespace Webf\Flysystem\Dsn\AdapterFactory;
 
-use League\Flysystem\Ftp\FtpAdapter;
-use League\Flysystem\Ftp\FtpConnectionOptions;
+use League\Flysystem\Local\LocalFilesystemAdapter;
 use League\Flysystem\UnixVisibility\PortableVisibilityConverter;
 use League\Flysystem\Visibility;
 use Nyholm\Dsn\Configuration\Dsn;
@@ -16,15 +15,9 @@ use Webf\Flysystem\Dsn\Exception\DsnException;
 use Webf\Flysystem\Dsn\Exception\DsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 
-class FtpAdapterFactory implements FlysystemAdapterFactoryInterface
+class LocalAdapterFactory implements FlysystemAdapterFactoryInterface
 {
-    public const TRANSFER_MODE_ASCII = 'ascii';
-    public const TRANSFER_MODE_BINARY = 'binary';
-
-    public const SYSTEM_TYPE_UNIX = 'unix';
-    public const SYSTEM_TYPE_WINDOWS = 'windows';
-
-    public function createAdapter(string $dsn): FtpAdapter
+    public function createAdapter(string $dsn): LocalFilesystemAdapter
     {
         $dsnString = $dsn;
         try {
@@ -33,19 +26,8 @@ class FtpAdapterFactory implements FlysystemAdapterFactoryInterface
             throw new DsnException($e->getMessage(), previous: $e);
         }
 
-        if ('ftp' !== $dsn->getScheme()) {
+        if ('local' !== $dsn->getScheme()) {
             throw UnsupportedDsnException::create($this, $dsnString);
-        }
-
-        $transferMode = $this->getStringParameter($dsn, 'transfer_mode') ?? self::TRANSFER_MODE_BINARY;
-        if (!in_array($transferMode, [self::TRANSFER_MODE_ASCII, self::TRANSFER_MODE_BINARY])) {
-            throw DsnParameterException::invalidParameter(sprintf('must be "%s" or "%s"', self::TRANSFER_MODE_ASCII, self::TRANSFER_MODE_BINARY), 'transfer_mode', $dsnString);
-        }
-        $transferMode = self::TRANSFER_MODE_ASCII === $transferMode ? FTP_ASCII : FTP_BINARY;
-
-        $systemType = $this->getStringParameter($dsn, 'system_type');
-        if (null !== $systemType && !in_array($systemType, [self::SYSTEM_TYPE_UNIX, self::SYSTEM_TYPE_WINDOWS])) {
-            throw DsnParameterException::invalidParameter(sprintf('must be "%s" or "%s"', self::SYSTEM_TYPE_UNIX, self::SYSTEM_TYPE_WINDOWS), 'system_type', $dsnString);
         }
 
         $publicFilePermission = $this->getPermissionParameter($dsn, 'public_file_permission');
@@ -56,11 +38,6 @@ class FtpAdapterFactory implements FlysystemAdapterFactoryInterface
         $defaultDirVisibility = $this->getStringParameter($dsn, 'default_dir_visibility') ?? Visibility::PRIVATE;
         if (!in_array($defaultDirVisibility, [Visibility::PUBLIC, Visibility::PRIVATE])) {
             throw DsnParameterException::invalidParameter(sprintf('must be "%s" or "%s"', Visibility::PUBLIC, Visibility::PRIVATE), 'default_dir_visibility', $dsnString);
-        }
-
-        $ignorePassiveAddress = $this->getStringParameter($dsn, 'ignore_passive_address');
-        if (null !== $ignorePassiveAddress) {
-            $ignorePassiveAddress = !('false' === $ignorePassiveAddress) && $ignorePassiveAddress;
         }
 
         $permissionMap = [];
@@ -77,27 +54,9 @@ class FtpAdapterFactory implements FlysystemAdapterFactoryInterface
             $permissionMap['dir']['private'] = $privateDirPermission;
         }
 
-        return new FtpAdapter(
-            new FtpConnectionOptions(
-                $dsn->getHost() ?? '',
-                $this->decodePath($dsn->getPath() ?? '/'),
-                $dsn->getUser() ?? '',
-                $dsn->getPassword() ?? '',
-                $dsn->getPort() ?? 21,
-                $this->getBoolParameter($dsn, 'ssl', false),
-                (int) ($this->getStringParameter($dsn, 'timeout') ?? 90),
-                $this->getBoolParameter($dsn, 'utf8', false),
-                $this->getBoolParameter($dsn, 'passive', true),
-                $transferMode,
-                $systemType,
-                $ignorePassiveAddress,
-                $this->getBoolParameter($dsn, 'timestamps_on_unix_listings', false), // bool $enableTimestampsOnUnixListings = false,
-                $this->getBoolParameter($dsn, 'recurse_manually', false), // bool $recurseManually = false
-            ),
-            visibilityConverter: PortableVisibilityConverter::fromArray(
-                $permissionMap,
-                $defaultDirVisibility
-            )
+        return new LocalFilesystemAdapter(
+            $this->decodePath(($dsn->getHost() ?? '') . ($dsn->getPath() ?? '')),
+            PortableVisibilityConverter::fromArray($permissionMap, $defaultDirVisibility)
         );
     }
 
@@ -111,7 +70,7 @@ class FtpAdapterFactory implements FlysystemAdapterFactoryInterface
             throw new DsnException($e->getMessage(), previous: $e);
         }
 
-        return 'ftp' === $scheme;
+        return 'local' === $scheme;
     }
 
     private function getStringParameter(Dsn $dsn, string $parameter): ?string
@@ -121,19 +80,6 @@ class FtpAdapterFactory implements FlysystemAdapterFactoryInterface
         }
 
         return $value;
-    }
-
-    private function getBoolParameter(Dsn $dsn, string $parameter, bool $default): bool
-    {
-        if (null === ($value = $this->getStringParameter($dsn, $parameter))) {
-            return $default;
-        }
-
-        if ('false' === $value) {
-            return false;
-        }
-
-        return (bool) $value;
     }
 
     /**

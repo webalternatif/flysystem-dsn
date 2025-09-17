@@ -2,31 +2,29 @@
 
 declare(strict_types=1);
 
-namespace Tests\Webf\Flysystem\Dsn;
+namespace Tests\Webf\Flysystem\Dsn\AdapterFactory;
 
 use League\Flysystem\ReadOnly\ReadOnlyFilesystemAdapter;
 use PHPUnit\Framework\TestCase;
-use Tests\Webf\Flysystem\Dsn\Stub\AdapterFactoryStub;
-use Tests\Webf\Flysystem\Dsn\Stub\AdapterStub;
+use Tests\Webf\Flysystem\Dsn\AdapterFactory\Stub\AdapterFactoryStub;
+use Tests\Webf\Flysystem\Dsn\AdapterFactory\Stub\AdapterStub;
+use Webf\Flysystem\Dsn\AdapterFactory\ReadOnlyAdapterFactory;
 use Webf\Flysystem\Dsn\Exception\DsnException;
 use Webf\Flysystem\Dsn\Exception\DsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
-use Webf\Flysystem\Dsn\ReadOnlyAdapterFactory;
 
 /**
  * @internal
  *
+ * @covers \Webf\Flysystem\Dsn\AdapterFactory\ReadOnlyAdapterFactory
  * @covers \Webf\Flysystem\Dsn\Exception\DsnParameterException
- * @covers \Webf\Flysystem\Dsn\ReadOnlyAdapterFactory
  */
 class ReadonlyAdapterFactoryTest extends TestCase
 {
     public function test_create_adapter(): void
     {
         $factory = new ReadOnlyAdapterFactory(new AdapterFactoryStub());
-        $adapter = $factory->createAdapter(
-            'readonly(stub://inner1)'
-        );
+        $adapter = $factory->createAdapter('readonly(stub://inner1)');
 
         $expectedAdapter = new ReadOnlyFilesystemAdapter(new AdapterStub('inner1'));
 
@@ -40,7 +38,7 @@ class ReadonlyAdapterFactoryTest extends TestCase
         $this->expectException(DsnParameterException::class);
         $this->expectExceptionMessage('more than 1 argument in DSN');
 
-        $factory->createAdapter('readonly(stub://inner1 stub://inner2)?name=name');
+        $factory->createAdapter('readonly(stub://inner1 stub://inner2)');
     }
 
     public function test_create_adapter_throws_exception_when_dsn_is_invalid(): void

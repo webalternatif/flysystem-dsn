@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Webf\Flysystem\Dsn;
+namespace Webf\Flysystem\Dsn\AdapterFactory;
 
 use League\Flysystem\FilesystemAdapter;
 use Webf\Flysystem\Dsn\Exception\DsnException;

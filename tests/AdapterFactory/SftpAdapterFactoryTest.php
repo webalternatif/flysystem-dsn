@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Tests\Webf\Flysystem\Dsn;
+namespace Tests\Webf\Flysystem\Dsn\AdapterFactory;
 
 use League\Flysystem\PhpseclibV3\SftpAdapter;
 use League\Flysystem\PhpseclibV3\SftpConnectionProvider;
 use League\Flysystem\UnixVisibility\PortableVisibilityConverter;
 use League\Flysystem\Visibility;
 use PHPUnit\Framework\TestCase;
+use Webf\Flysystem\Dsn\AdapterFactory\SftpAdapterFactory;
 use Webf\Flysystem\Dsn\Exception\DsnException;
 use Webf\Flysystem\Dsn\Exception\DsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
-use Webf\Flysystem\Dsn\SftpAdapterFactory;
 
 /**
  * @internal
  *
+ * @covers \Webf\Flysystem\Dsn\AdapterFactory\SftpAdapterFactory
  * @covers \Webf\Flysystem\Dsn\Exception\DsnParameterException
- * @covers \Webf\Flysystem\Dsn\SftpAdapterFactory
  */
 class SftpAdapterFactoryTest extends TestCase
 {

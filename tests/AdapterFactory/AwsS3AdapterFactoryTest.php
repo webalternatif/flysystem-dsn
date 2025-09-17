@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Tests\Webf\Flysystem\Dsn;
+namespace Tests\Webf\Flysystem\Dsn\AdapterFactory;
 
 use Aws\S3\S3Client;
 use Aws\S3\S3ClientInterface;
 use League\Flysystem\AwsS3V3\AwsS3V3Adapter;
 use PHPUnit\Framework\TestCase;
-use Webf\Flysystem\Dsn\AwsS3AdapterFactory;
+use Webf\Flysystem\Dsn\AdapterFactory\AwsS3AdapterFactory;
 use Webf\Flysystem\Dsn\Exception\DsnException;
 use Webf\Flysystem\Dsn\Exception\DsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
@@ -16,7 +16,7 @@ use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 /**
  * @internal
  *
- * @covers \Webf\Flysystem\Dsn\AwsS3AdapterFactory
+ * @covers \Webf\Flysystem\Dsn\AdapterFactory\AwsS3AdapterFactory
  * @covers \Webf\Flysystem\Dsn\Exception\DsnParameterException
  */
 class AwsS3AdapterFactoryTest extends TestCase

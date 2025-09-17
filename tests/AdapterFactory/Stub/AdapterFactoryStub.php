@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Webf\Flysystem\Dsn\Stub;
+namespace Tests\Webf\Flysystem\Dsn\AdapterFactory\Stub;
 
 use League\Flysystem\FilesystemAdapter;
 use Nyholm\Dsn\DsnParser;
-use Webf\Flysystem\Dsn\FlysystemAdapterFactoryInterface;
+use Webf\Flysystem\Dsn\AdapterFactory\FlysystemAdapterFactoryInterface;
 
 class AdapterFactoryStub implements FlysystemAdapterFactoryInterface
 {

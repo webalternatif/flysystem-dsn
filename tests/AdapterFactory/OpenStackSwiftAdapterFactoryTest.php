@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Tests\Webf\Flysystem\Dsn;
+namespace Tests\Webf\Flysystem\Dsn\AdapterFactory;
 
 use OpenStack\OpenStack;
 use PHPUnit\Framework\TestCase;
+use Webf\Flysystem\Dsn\AdapterFactory\OpenStackSwiftAdapterFactory;
 use Webf\Flysystem\Dsn\Exception\DsnException;
 use Webf\Flysystem\Dsn\Exception\DsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
-use Webf\Flysystem\Dsn\OpenStackSwiftAdapterFactory;
 use Webf\Flysystem\OpenStackSwift\OpenStackSwiftAdapter;
 
 /**
  * @internal
  *
+ * @covers \Webf\Flysystem\Dsn\AdapterFactory\OpenStackSwiftAdapterFactory
  * @covers \Webf\Flysystem\Dsn\Exception\DsnParameterException
- * @covers \Webf\Flysystem\Dsn\OpenStackSwiftAdapterFactory
  */
 class OpenStackSwiftAdapterFactoryTest extends TestCase
 {

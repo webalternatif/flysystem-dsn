@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Tests\Webf\Flysystem\Dsn;
+namespace Tests\Webf\Flysystem\Dsn\AdapterFactory;
 
 use PHPUnit\Framework\TestCase;
-use Webf\Flysystem\Dsn\AwsS3AdapterFactory;
+use Webf\Flysystem\Dsn\AdapterFactory\AwsS3AdapterFactory;
+use Webf\Flysystem\Dsn\AdapterFactory\FailoverAdapterFactory;
+use Webf\Flysystem\Dsn\AdapterFactory\FlysystemAdapterFactory;
+use Webf\Flysystem\Dsn\AdapterFactory\OpenStackSwiftAdapterFactory;
 use Webf\Flysystem\Dsn\Exception\DsnException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
-use Webf\Flysystem\Dsn\FailoverAdapterFactory;
-use Webf\Flysystem\Dsn\FlysystemAdapterFactory;
-use Webf\Flysystem\Dsn\OpenStackSwiftAdapterFactory;
 use Webf\Flysystem\OpenStackSwift\OpenStackSwiftAdapter;
 use Webf\FlysystemFailoverBundle\Flysystem\FailoverAdapter;
 use Webf\FlysystemFailoverBundle\MessageRepository\MessageRepositoryInterface;
@@ -18,7 +18,7 @@ use Webf\FlysystemFailoverBundle\MessageRepository\MessageRepositoryInterface;
 /**
  * @internal
  *
- * @covers \Webf\Flysystem\Dsn\FlysystemAdapterFactory
+ * @covers \Webf\Flysystem\Dsn\AdapterFactory\FlysystemAdapterFactory
  */
 class FlysystemAdapterFactoryTest extends TestCase
 {

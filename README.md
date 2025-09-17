@@ -28,9 +28,9 @@ See the [adapters section](#adapters) to know how to install them.
 ## Usage
 
 ```php
-use Webf\Flysystem\Dsn\AwsS3AdapterFactory;
-use Webf\Flysystem\Dsn\FlysystemAdapterFactory;
-use Webf\Flysystem\Dsn\OpenStackSwiftAdapterFactory;
+use Webf\Flysystem\Dsn\AdapterFactory\AwsS3AdapterFactory;
+use Webf\Flysystem\Dsn\AdapterFactory\FlysystemAdapterFactory;
+use Webf\Flysystem\Dsn\AdapterFactory\OpenStackSwiftAdapterFactory;
 
 $factory = new FlysystemAdapterFactory([
     new AwsS3AdapterFactory(),
@@ -48,7 +48,7 @@ $adapter = $factory->createAdapter($dsn);
 |---------------|---------------------------------------------------------------|
 | Inner adapter | [`league/flysystem-aws-s3-v3`][10]                            |
 | Install       | [`composer require league/flysystem-aws-s3-v3`][100]          |
-| Factory class | `Webf\Flysystem\Dsn\AwsS3AdapterFactory`                      |
+| Factory class | `Webf\Flysystem\Dsn\AdapterFactory\AwsS3AdapterFactory`       |
 | DSN           | `s3://username:password@endpoint?region=region&bucket=bucket` |
 |               |                                                               |
 
@@ -67,7 +67,7 @@ $adapter = $factory->createAdapter($dsn);
 |---------------|-------------------------------------------------------------------|
 | Inner adapter | [`webalternatif/flysystem-failover-bundle`][11]                   |
 | Install       | [`composer require webalternatif/flysystem-failover-bundle`][110] |
-| Factory class | `Webf\Flysystem\Dsn\FailoverAdapterFactory`                       |
+| Factory class | `Webf\Flysystem\Dsn\AdapterFactory\FailoverAdapterFactory`        |
 | DSN           | `failover(inner1:// inner2:// ...)?name=name`                     |
 |               |                                                                   |
 
@@ -77,13 +77,13 @@ $adapter = $factory->createAdapter($dsn);
 
 ### Ftp
 
-|               |                                                   |
-|---------------|---------------------------------------------------|
-| Inner adapter | [`league/flysystem-ftp`][12]                      |
-| Install       | [`composer require league/flysystem-ftp`][120]    |
-| Factory class | `Webf\Flysystem\Dsn\FtpAdapterFactory`            |
-| DSN           | `ftp://username:password@host:port/absolute/path` |
-|               |                                                   |
+|               |                                                       |
+|---------------|-------------------------------------------------------|
+| Inner adapter | [`league/flysystem-ftp`][12]                          |
+| Install       | [`composer require league/flysystem-ftp`][120]        |
+| Factory class | `Webf\Flysystem\Dsn\AdapterFactory\FtpAdapterFactory` |
+| DSN           | `ftp://username:password@host:port/absolute/path`     |
+|               |                                                       |
 
 * Port is optional and defaults to `21`
 * If the path contains spaces, replace each one by `%20`.
@@ -107,26 +107,46 @@ $adapter = $factory->createAdapter($dsn);
 
 ### In memory
 
-|               |                                                   |
-|---------------|---------------------------------------------------|
-| Inner adapter | [`league/flysystem-memory`][13]                   |
-| Install       | [`composer require league/flysystem-memory`][130] |
-| Factory class | `Webf\Flysystem\Dsn\InMemoryAdapterFactory`       |
-| DSN           | `in-memory://`                                    |
-|               |                                                   |
+|               |                                                            |
+|---------------|------------------------------------------------------------|
+| Inner adapter | [`league/flysystem-memory`][13]                            |
+| Install       | [`composer require league/flysystem-memory`][130]          |
+| Factory class | `Webf\Flysystem\Dsn\AdapterFactory\InMemoryAdapterFactory` |
+| DSN           | `in-memory://`                                             |
+|               |                                                            |
 
 #### Optional DSN parameters
 
 * `default_visibility`: default visibility of created files and directories (must be `public` or `private`, default: `public`)
 
+### Lazy
+
+This adapter allows deferring the creation of the inner adapter until it is
+actually used (i.e., when Flysystem's methods are called). This is useful when
+you don't want an adapter to be created, but you need to have it somewhere
+(e.g., in a service container), and the creation of the adapter is expensive
+(e.g., it makes a network request).
+
+The drawback is that you have to make sure the DSN of the inner adapter is
+valid, otherwise an exception will be thrown at "usage" time.
+
+|               |                                                        |
+|---------------|--------------------------------------------------------|
+| Inner adapter | `Webf\Flysystem\Dsn\Adapter\LazyAdapter`               |
+| Factory class | `Webf\Flysystem\Dsn\AdapterFactory\LazyAdapterFactory` |
+| DSN           | `lazy(inner://)`                                       |
+|               |                                                        |
+
+* There must be exactly one DSN argument for the lazy DSN function.
+
 ### Local
 
-|               |                                          |
-|---------------|------------------------------------------|
-| Inner adapter | Built-in with [`league/flysystem`][14]   |
-| Factory class | `Webf\Flysystem\Dsn\LocalAdapterFactory` |
-| DSN           | `local://absolute_or_relative_path`      |
-|               |                                          |
+|               |                                                         |
+|---------------|---------------------------------------------------------|
+| Inner adapter | Built-in with [`league/flysystem`][14]                  |
+| Factory class | `Webf\Flysystem\Dsn\AdapterFactory\LocalAdapterFactory` |
+| DSN           | `local://absolute_or_relative_path`                     |
+|               |                                                         |
 
 * If the path contains spaces, replace each one by `%20`.
 
@@ -144,7 +164,7 @@ $adapter = $factory->createAdapter($dsn);
 |---------------|------------------------------------------------------------------------|
 | Inner adapter | [`webalternatif/flysystem-openstack-swift`][15]                        |
 | Install       | [`composer require webalternatif/flysystem-openstack-swift`][150]      |
-| Factory class | `Webf\Flysystem\Dsn\OpenStackSwiftAdapterFactory`                      |
+| Factory class | `Webf\Flysystem\Dsn\AdapterFactory\OpenStackSwiftAdapterFactory`       |
 | DSN           | `swift://username:password@endpoint?region=region&container=container` |
 |               |                                                                        |
 
@@ -172,7 +192,7 @@ $adapter = $factory->createAdapter($dsn);
 |---------------|-----------------------------------------------------------|
 | Inner adapter | [`league/flysystem-path-prefixing`][16]                   |
 | Install       | [`composer require league/flysystem-path-prefixing`][160] |
-| Factory class | `Webf\Flysystem\Dsn\PrefixAdapterFactory`                 |
+| Factory class | `Webf\Flysystem\Dsn\AdapterFactory\PrefixAdapterFactory`  |
 | DSN           | `prefix(inner://)?path=some/prefix/path`                  |
 |               |                                                           |
 
@@ -181,25 +201,25 @@ $adapter = $factory->createAdapter($dsn);
 
 ### ReadOnly
 
-|               |                                                      |
-|---------------|------------------------------------------------------|
-| Inner adapter | [`league/flysystem-read-only`][17]                   |
-| Install       | [`composer require league/flysystem-read-only`][170] |
-| Factory class | `Webf\Flysystem\Dsn\ReadOnlyAdapterFactory`          |
-| DSN           | `readonly(inner://)`                                 |
-|               |                                                      |
+|               |                                                            |
+|---------------|------------------------------------------------------------|
+| Inner adapter | [`league/flysystem-read-only`][17]                         |
+| Install       | [`composer require league/flysystem-read-only`][170]       |
+| Factory class | `Webf\Flysystem\Dsn\AdapterFactory\ReadOnlyAdapterFactory` |
+| DSN           | `readonly(inner://)`                                       |
+|               |                                                            |
 
 * There must be exactly one DSN argument for the readonly DSN function.
 
 ### Sftp
 
-|               |                                                    |
-|---------------|----------------------------------------------------|
-| Inner adapter | [`league/flysystem-sftp-v3`][18]                   |
-| Install       | [`composer require league/flysystem-sftp-v3`][180] |
-| Factory class | `Webf\Flysystem\Dsn\SftpAdapterFactory`            |
-| DSN           | `sftp://username:password@host:port/absolute/path` |
-|               |                                                    |
+|               |                                                        |
+|---------------|--------------------------------------------------------|
+| Inner adapter | [`league/flysystem-sftp-v3`][18]                       |
+| Install       | [`composer require league/flysystem-sftp-v3`][180]     |
+| Factory class | `Webf\Flysystem\Dsn\AdapterFactory\SftpAdapterFactory` |
+| DSN           | `sftp://username:password@host:port/absolute/path`     |
+|               |                                                        |
 
 * The password can be empty if the `private_key` parameter is defined.
 * Port is optional and defaults to `22`
