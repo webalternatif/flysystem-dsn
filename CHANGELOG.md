@@ -3,14 +3,14 @@
 ### 💥 Breaking changes
 
 * Refactor exceptions ([#16](https://github.com/webalternatif/flysystem-dsn/pull/16))
-* Move all adapter factories to the `Webf\Flysystem\Dsn\AdapterFactory` namespace
+* Move all adapter factories to the `Webf\Flysystem\Dsn\AdapterFactory` namespace ([#18](https://github.com/webalternatif/flysystem-dsn/pull/18))
 
 ### ✨ New features
 
 * Add the `temp_url_key` option to `OpenStackSwiftAdapterFactory` ([#15](https://github.com/webalternatif/flysystem-dsn/pull/15))
 * Add `ReadOnlyAdapterFactory` ([#16](https://github.com/webalternatif/flysystem-dsn/pull/16))
 * Add `PrefixAdapterFactory` ([#17](https://github.com/webalternatif/flysystem-dsn/pull/17))
-* Add `LazyAdapterFactory`
+* Add `LazyAdapterFactory` ([#18](https://github.com/webalternatif/flysystem-dsn/pull/18))
 
 ## v0.6.0 (February 8, 2025)
 
