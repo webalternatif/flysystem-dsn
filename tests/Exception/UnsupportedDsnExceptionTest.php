@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Webf\Flysystem\Dsn\Exception;
 
 use PHPUnit\Framework\TestCase;
+use Webf\Flysystem\Dsn\AdapterFactory\FlysystemAdapterFactory;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
-use Webf\Flysystem\Dsn\FlysystemAdapterFactory;
 
 /**
  * @internal

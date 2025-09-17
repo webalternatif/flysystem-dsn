@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Webf\Flysystem\Dsn\Stub;
+namespace Tests\Webf\Flysystem\Dsn\AdapterFactory\Stub;
 
 use League\Flysystem\Config;
 use League\Flysystem\FileAttributes;

@@ -3,6 +3,7 @@
 ### 💥 Breaking changes
 
 * Refactor exceptions ([#16](https://github.com/webalternatif/flysystem-dsn/pull/16))
+* Move all adapter factories to the `Webf\Flysystem\Dsn\AdapterFactory` namespace
 
 ### ✨ New features
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Webf\Flysystem\Dsn\Exception;
 
-use Webf\Flysystem\Dsn\FlysystemAdapterFactoryInterface;
+use Webf\Flysystem\Dsn\AdapterFactory\FlysystemAdapterFactoryInterface;
 
 class UnsupportedDsnException extends InvalidArgumentException
 {

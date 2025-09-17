@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Webf\Flysystem\Dsn;
+namespace Webf\Flysystem\Dsn\AdapterFactory;
 
-use League\Flysystem\ReadOnly\ReadOnlyFilesystemAdapter;
+use League\Flysystem\PathPrefixing\PathPrefixedAdapter;
 use Nyholm\Dsn\DsnParser;
 use Nyholm\Dsn\Exception\InvalidDsnException as NyholmInvalidDsnException;
 use Webf\Flysystem\Dsn\Exception\DsnException;
 use Webf\Flysystem\Dsn\Exception\DsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 
-readonly class ReadOnlyAdapterFactory implements FlysystemAdapterFactoryInterface
+readonly class PrefixAdapterFactory implements FlysystemAdapterFactoryInterface
 {
     public function __construct(private FlysystemAdapterFactoryInterface $adapterFactory)
     {
     }
 
-    public function createAdapter(string $dsn): ReadOnlyFilesystemAdapter
+    public function createAdapter(string $dsn): PathPrefixedAdapter
     {
         $dsnString = $dsn;
         try {
@@ -26,17 +26,21 @@ readonly class ReadOnlyAdapterFactory implements FlysystemAdapterFactoryInterfac
             throw new DsnException($e->getMessage(), previous: $e);
         }
 
-        if ('readonly' !== $dsn->getName()) {
+        if ('prefix' !== $dsn->getName()) {
             throw UnsupportedDsnException::create($this, $dsnString);
         }
 
         if (count($arguments = $dsn->getArguments()) > 1) {
-            throw DsnParameterException::toManyArguments(1, count($arguments), 'readonly', $dsnString);
+            throw DsnParameterException::toManyArguments(1, count($arguments), 'prefix', $dsnString);
+        }
+
+        if (!is_string($path = $dsn->getParameter('path'))) {
+            throw DsnParameterException::missingParameter('path', $dsnString);
         }
 
         $innerAdapter = $this->adapterFactory->createAdapter($arguments[0]->__toString());
 
-        return new ReadOnlyFilesystemAdapter($innerAdapter);
+        return new PathPrefixedAdapter($innerAdapter, $path);
     }
 
     public function supports(string $dsn): bool
@@ -47,6 +51,6 @@ readonly class ReadOnlyAdapterFactory implements FlysystemAdapterFactoryInterfac
             throw new DsnException($e->getMessage(), previous: $e);
         }
 
-        return 'readonly' === $name;
+        return 'prefix' === $name;
     }
 }

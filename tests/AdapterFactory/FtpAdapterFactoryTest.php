@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Tests\Webf\Flysystem\Dsn;
+namespace Tests\Webf\Flysystem\Dsn\AdapterFactory;
 
 use League\Flysystem\Ftp\FtpAdapter;
 use League\Flysystem\Ftp\FtpConnectionOptions;
 use League\Flysystem\UnixVisibility\PortableVisibilityConverter;
 use League\Flysystem\Visibility;
 use PHPUnit\Framework\TestCase;
+use Webf\Flysystem\Dsn\AdapterFactory\FtpAdapterFactory;
 use Webf\Flysystem\Dsn\Exception\DsnException;
 use Webf\Flysystem\Dsn\Exception\DsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
-use Webf\Flysystem\Dsn\FtpAdapterFactory;
 
 /**
  * @internal
  *
+ * @covers \Webf\Flysystem\Dsn\AdapterFactory\FtpAdapterFactory
  * @covers \Webf\Flysystem\Dsn\Exception\DsnParameterException
- * @covers \Webf\Flysystem\Dsn\FtpAdapterFactory
  */
 class FtpAdapterFactoryTest extends TestCase
 {

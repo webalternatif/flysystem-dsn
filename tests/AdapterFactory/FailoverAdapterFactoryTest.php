@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Tests\Webf\Flysystem\Dsn;
+namespace Tests\Webf\Flysystem\Dsn\AdapterFactory;
 
 use PHPUnit\Framework\TestCase;
-use Tests\Webf\Flysystem\Dsn\Stub\AdapterFactoryStub;
-use Tests\Webf\Flysystem\Dsn\Stub\AdapterStub;
+use Tests\Webf\Flysystem\Dsn\AdapterFactory\Stub\AdapterFactoryStub;
+use Tests\Webf\Flysystem\Dsn\AdapterFactory\Stub\AdapterStub;
+use Webf\Flysystem\Dsn\AdapterFactory\FailoverAdapterFactory;
 use Webf\Flysystem\Dsn\Exception\DsnException;
 use Webf\Flysystem\Dsn\Exception\DsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
-use Webf\Flysystem\Dsn\FailoverAdapterFactory;
 use Webf\FlysystemFailoverBundle\Flysystem\FailoverAdapter;
 use Webf\FlysystemFailoverBundle\Flysystem\InnerAdapter;
 use Webf\FlysystemFailoverBundle\MessageRepository\MessageRepositoryInterface;
@@ -18,8 +18,8 @@ use Webf\FlysystemFailoverBundle\MessageRepository\MessageRepositoryInterface;
 /**
  * @internal
  *
+ * @covers \Webf\Flysystem\Dsn\AdapterFactory\FailoverAdapterFactory
  * @covers \Webf\Flysystem\Dsn\Exception\DsnParameterException
- * @covers \Webf\Flysystem\Dsn\FailoverAdapterFactory
  */
 class FailoverAdapterFactoryTest extends TestCase
 {
