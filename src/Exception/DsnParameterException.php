@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Webf\Flysystem\Dsn\Exception;
 
-class DsnParameterException extends InvalidArgumentException
+final class DsnParameterException extends InvalidArgumentException
 {
     private function __construct(string $message)
     {

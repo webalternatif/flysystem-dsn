@@ -11,12 +11,13 @@ use Webf\Flysystem\Dsn\Exception\DsnException;
 use Webf\Flysystem\Dsn\Exception\DsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 
-readonly class LazyAdapterFactory implements FlysystemAdapterFactoryInterface
+final readonly class LazyAdapterFactory implements FlysystemAdapterFactoryInterface
 {
     public function __construct(private FlysystemAdapterFactoryInterface $adapterFactory)
     {
     }
 
+    #[\Override]
     public function createAdapter(string $dsn): LazyAdapter
     {
         $dsnString = $dsn;
@@ -37,6 +38,7 @@ readonly class LazyAdapterFactory implements FlysystemAdapterFactoryInterface
         return new LazyAdapter($this->adapterFactory, $arguments[0]->__toString());
     }
 
+    #[\Override]
     public function supports(string $dsn): bool
     {
         try {

@@ -11,12 +11,13 @@ use Webf\Flysystem\Dsn\Exception\DsnException;
 use Webf\Flysystem\Dsn\Exception\DsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 
-readonly class PrefixAdapterFactory implements FlysystemAdapterFactoryInterface
+final readonly class PrefixAdapterFactory implements FlysystemAdapterFactoryInterface
 {
     public function __construct(private FlysystemAdapterFactoryInterface $adapterFactory)
     {
     }
 
+    #[\Override]
     public function createAdapter(string $dsn): PathPrefixedAdapter
     {
         $dsnString = $dsn;
@@ -43,6 +44,7 @@ readonly class PrefixAdapterFactory implements FlysystemAdapterFactoryInterface
         return new PathPrefixedAdapter($innerAdapter, $path);
     }
 
+    #[\Override]
     public function supports(string $dsn): bool
     {
         try {

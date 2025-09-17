@@ -13,8 +13,9 @@ use Webf\Flysystem\Dsn\Exception\DsnException;
 use Webf\Flysystem\Dsn\Exception\DsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 
-class AwsS3AdapterFactory implements FlysystemAdapterFactoryInterface
+final class AwsS3AdapterFactory implements FlysystemAdapterFactoryInterface
 {
+    #[\Override]
     public function createAdapter(string $dsn): AwsS3V3Adapter
     {
         $dsnString = $dsn;
@@ -62,6 +63,7 @@ class AwsS3AdapterFactory implements FlysystemAdapterFactoryInterface
         );
     }
 
+    #[\Override]
     public function supports(string $dsn): bool
     {
         try {

@@ -6,7 +6,7 @@ namespace Webf\Flysystem\Dsn\Exception;
 
 use Webf\Flysystem\Dsn\AdapterFactory\FlysystemAdapterFactoryInterface;
 
-class UnsupportedDsnException extends InvalidArgumentException
+final class UnsupportedDsnException extends InvalidArgumentException
 {
     private function __construct(string $message)
     {

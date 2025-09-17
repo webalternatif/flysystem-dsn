@@ -16,8 +16,9 @@ use Webf\Flysystem\Dsn\Exception\DsnException;
 use Webf\Flysystem\Dsn\Exception\DsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 
-class SftpAdapterFactory implements FlysystemAdapterFactoryInterface
+final class SftpAdapterFactory implements FlysystemAdapterFactoryInterface
 {
+    #[\Override]
     public function createAdapter(string $dsn): SftpAdapter
     {
         $dsnString = $dsn;
@@ -73,6 +74,7 @@ class SftpAdapterFactory implements FlysystemAdapterFactoryInterface
         );
     }
 
+    #[\Override]
     public function supports(string $dsn): bool
     {
         try {

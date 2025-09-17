@@ -16,7 +16,7 @@ use Webf\Flysystem\Dsn\Exception\DsnException;
 use Webf\Flysystem\Dsn\Exception\DsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 
-class FtpAdapterFactory implements FlysystemAdapterFactoryInterface
+final class FtpAdapterFactory implements FlysystemAdapterFactoryInterface
 {
     public const TRANSFER_MODE_ASCII = 'ascii';
     public const TRANSFER_MODE_BINARY = 'binary';
@@ -24,6 +24,7 @@ class FtpAdapterFactory implements FlysystemAdapterFactoryInterface
     public const SYSTEM_TYPE_UNIX = 'unix';
     public const SYSTEM_TYPE_WINDOWS = 'windows';
 
+    #[\Override]
     public function createAdapter(string $dsn): FtpAdapter
     {
         $dsnString = $dsn;
@@ -101,6 +102,7 @@ class FtpAdapterFactory implements FlysystemAdapterFactoryInterface
         );
     }
 
+    #[\Override]
     public function supports(string $dsn): bool
     {
         try {

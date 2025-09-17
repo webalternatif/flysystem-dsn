@@ -27,7 +27,7 @@ use League\Flysystem\UrlGeneration\TemporaryUrlGenerator;
 use Webf\Flysystem\Dsn\AdapterFactory\FlysystemAdapterFactoryInterface;
 use Webf\Flysystem\Dsn\Exception\ExceptionInterface;
 
-class LazyAdapter implements FilesystemAdapter, ChecksumProvider, TemporaryUrlGenerator, PublicUrlGenerator
+final class LazyAdapter implements FilesystemAdapter, ChecksumProvider, TemporaryUrlGenerator, PublicUrlGenerator
 {
     private ?FilesystemAdapter $innerAdapter = null;
 
@@ -49,6 +49,7 @@ class LazyAdapter implements FilesystemAdapter, ChecksumProvider, TemporaryUrlGe
         return $this->innerAdapter;
     }
 
+    #[\Override]
     public function fileExists(string $path): bool
     {
         try {
@@ -58,6 +59,7 @@ class LazyAdapter implements FilesystemAdapter, ChecksumProvider, TemporaryUrlGe
         }
     }
 
+    #[\Override]
     public function directoryExists(string $path): bool
     {
         try {
@@ -67,6 +69,7 @@ class LazyAdapter implements FilesystemAdapter, ChecksumProvider, TemporaryUrlGe
         }
     }
 
+    #[\Override]
     public function write(string $path, string $contents, Config $config): void
     {
         try {
@@ -76,6 +79,7 @@ class LazyAdapter implements FilesystemAdapter, ChecksumProvider, TemporaryUrlGe
         }
     }
 
+    #[\Override]
     public function writeStream(string $path, $contents, Config $config): void
     {
         try {
@@ -85,6 +89,7 @@ class LazyAdapter implements FilesystemAdapter, ChecksumProvider, TemporaryUrlGe
         }
     }
 
+    #[\Override]
     public function read(string $path): string
     {
         try {
@@ -94,6 +99,7 @@ class LazyAdapter implements FilesystemAdapter, ChecksumProvider, TemporaryUrlGe
         }
     }
 
+    #[\Override]
     public function readStream(string $path)
     {
         try {
@@ -103,6 +109,7 @@ class LazyAdapter implements FilesystemAdapter, ChecksumProvider, TemporaryUrlGe
         }
     }
 
+    #[\Override]
     public function delete(string $path): void
     {
         try {
@@ -112,6 +119,7 @@ class LazyAdapter implements FilesystemAdapter, ChecksumProvider, TemporaryUrlGe
         }
     }
 
+    #[\Override]
     public function deleteDirectory(string $path): void
     {
         try {
@@ -121,6 +129,7 @@ class LazyAdapter implements FilesystemAdapter, ChecksumProvider, TemporaryUrlGe
         }
     }
 
+    #[\Override]
     public function createDirectory(string $path, Config $config): void
     {
         try {
@@ -130,6 +139,7 @@ class LazyAdapter implements FilesystemAdapter, ChecksumProvider, TemporaryUrlGe
         }
     }
 
+    #[\Override]
     public function setVisibility(string $path, string $visibility): void
     {
         try {
@@ -139,6 +149,7 @@ class LazyAdapter implements FilesystemAdapter, ChecksumProvider, TemporaryUrlGe
         }
     }
 
+    #[\Override]
     public function visibility(string $path): FileAttributes
     {
         try {
@@ -148,6 +159,7 @@ class LazyAdapter implements FilesystemAdapter, ChecksumProvider, TemporaryUrlGe
         }
     }
 
+    #[\Override]
     public function mimeType(string $path): FileAttributes
     {
         try {
@@ -157,6 +169,7 @@ class LazyAdapter implements FilesystemAdapter, ChecksumProvider, TemporaryUrlGe
         }
     }
 
+    #[\Override]
     public function lastModified(string $path): FileAttributes
     {
         try {
@@ -166,6 +179,7 @@ class LazyAdapter implements FilesystemAdapter, ChecksumProvider, TemporaryUrlGe
         }
     }
 
+    #[\Override]
     public function fileSize(string $path): FileAttributes
     {
         try {
@@ -175,6 +189,7 @@ class LazyAdapter implements FilesystemAdapter, ChecksumProvider, TemporaryUrlGe
         }
     }
 
+    #[\Override]
     public function listContents(string $path, bool $deep): iterable
     {
         try {
@@ -184,6 +199,7 @@ class LazyAdapter implements FilesystemAdapter, ChecksumProvider, TemporaryUrlGe
         }
     }
 
+    #[\Override]
     public function move(string $source, string $destination, Config $config): void
     {
         try {
@@ -193,6 +209,7 @@ class LazyAdapter implements FilesystemAdapter, ChecksumProvider, TemporaryUrlGe
         }
     }
 
+    #[\Override]
     public function copy(string $source, string $destination, Config $config): void
     {
         try {
@@ -202,6 +219,7 @@ class LazyAdapter implements FilesystemAdapter, ChecksumProvider, TemporaryUrlGe
         }
     }
 
+    #[\Override]
     public function checksum(string $path, Config $config): string
     {
         try {
@@ -217,6 +235,7 @@ class LazyAdapter implements FilesystemAdapter, ChecksumProvider, TemporaryUrlGe
         throw new ChecksumAlgoIsNotSupported('The inner adapter does not support checksums.');
     }
 
+    #[\Override]
     public function publicUrl(string $path, Config $config): string
     {
         try {
@@ -232,6 +251,7 @@ class LazyAdapter implements FilesystemAdapter, ChecksumProvider, TemporaryUrlGe
         throw UnableToGeneratePublicUrl::noGeneratorConfigured($path);
     }
 
+    #[\Override]
     public function temporaryUrl(string $path, \DateTimeInterface $expiresAt, Config $config): string
     {
         try {
