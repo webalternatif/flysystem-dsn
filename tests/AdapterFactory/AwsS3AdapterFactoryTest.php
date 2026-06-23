@@ -212,7 +212,6 @@ class AwsS3AdapterFactoryTest extends TestCase
         $class = new \ReflectionClass(AwsS3V3Adapter::class);
 
         $clientProperty = $class->getProperty('client');
-        $clientProperty->setAccessible(true);
 
         return $clientProperty->getValue($adapter);
     }
