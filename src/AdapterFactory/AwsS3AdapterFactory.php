@@ -56,7 +56,7 @@ final class AwsS3AdapterFactory implements FlysystemAdapterFactoryInterface
      * @throws UnsupportedDsnException
      * @throws DsnParameterException
      */
-    private function createClient(Dsn $dsn): S3Client
+    public function createClient(Dsn $dsn): S3Client
     {
         $dsnString = $dsn->__toString();
 
