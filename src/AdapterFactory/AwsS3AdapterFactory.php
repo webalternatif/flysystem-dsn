@@ -6,6 +6,7 @@ namespace Webf\Flysystem\Dsn\AdapterFactory;
 
 use Aws\S3\S3Client;
 use League\Flysystem\AwsS3V3\AwsS3V3Adapter;
+use Nyholm\Dsn\Configuration\Dsn;
 use Nyholm\Dsn\DsnParser;
 use Nyholm\Dsn\Exception\FunctionsNotAllowedException;
 use Nyholm\Dsn\Exception\InvalidDsnException as NyholmInvalidDsnException;
@@ -25,6 +26,36 @@ final class AwsS3AdapterFactory implements FlysystemAdapterFactoryInterface
             throw new DsnException($e->getMessage(), previous: $e);
         }
 
+        if (!is_string($bucket = $dsn->getParameter('bucket'))) {
+            throw DsnParameterException::missingParameter('bucket', $dsnString);
+        }
+
+        $s3Client = $this->createClient($dsn);
+
+        return new AwsS3V3Adapter(
+            $s3Client,
+            $bucket
+        );
+    }
+
+    #[\Override]
+    public function supports(string $dsn): bool
+    {
+        try {
+            $scheme = DsnParser::parse($dsn)->getScheme() ?? '';
+        } catch (FunctionsNotAllowedException) {
+            return false;
+        } catch (NyholmInvalidDsnException $e) {
+            throw new DsnException($e->getMessage(), previous: $e);
+        }
+
+        return 1 === preg_match('/^s3(?:\+(https?))?$/', $scheme);
+    }
+
+    private function createClient(Dsn $dsn): S3Client
+    {
+        $dsnString = $dsn->__toString();
+
         $matches = [];
         if (1 !== preg_match('/^s3(?:\+(https?))?$/', $dsn->getScheme() ?? '', $matches)) {
             throw UnsupportedDsnException::create($this, $dsnString);
@@ -32,10 +63,6 @@ final class AwsS3AdapterFactory implements FlysystemAdapterFactoryInterface
 
         if (!is_string($region = $dsn->getParameter('region'))) {
             throw DsnParameterException::missingParameter('region', $dsnString);
-        }
-
-        if (!is_string($bucket = $dsn->getParameter('bucket'))) {
-            throw DsnParameterException::missingParameter('bucket', $dsnString);
         }
 
         $clientParameters = [
@@ -55,25 +82,6 @@ final class AwsS3AdapterFactory implements FlysystemAdapterFactoryInterface
             ];
         }
 
-        return new AwsS3V3Adapter(
-            new S3Client(
-                $clientParameters,
-            ),
-            $bucket
-        );
-    }
-
-    #[\Override]
-    public function supports(string $dsn): bool
-    {
-        try {
-            $scheme = DsnParser::parse($dsn)->getScheme() ?? '';
-        } catch (FunctionsNotAllowedException) {
-            return false;
-        } catch (NyholmInvalidDsnException $e) {
-            throw new DsnException($e->getMessage(), previous: $e);
-        }
-
-        return 1 === preg_match('/^s3(?:\+(https?))?$/', $scheme);
+        return new S3Client($clientParameters);
     }
 }
