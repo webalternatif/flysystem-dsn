@@ -52,6 +52,10 @@ final class AwsS3AdapterFactory implements FlysystemAdapterFactoryInterface
         return 1 === preg_match('/^s3(?:\+(https?))?$/', $scheme);
     }
 
+    /**
+     * @throws UnsupportedDsnException
+     * @throws DsnParameterException
+     */
     private function createClient(Dsn $dsn): S3Client
     {
         $dsnString = $dsn->__toString();
