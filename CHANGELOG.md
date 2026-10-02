@@ -1,4 +1,4 @@
-## v0.7.1 (unreleased)
+## v0.7.1 (October 2, 2026)
 
 ### ✨ New features
 
