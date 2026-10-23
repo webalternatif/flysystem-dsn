@@ -28,8 +28,11 @@
         "php-opencloud/openstack": "^3.2",
         "phpunit/phpunit": "^9.5",
         "vimeo/psalm": "^6.13",
-        "webalternatif/flysystem-failover-bundle": "^0.7.0",
+        "webalternatif/flysystem-failover-bundle": "^0.8.1",
         "webalternatif/flysystem-openstack-swift": "^0.6.0"
+    },
+    "conflict": {
+        "webalternatif/flysystem-failover-bundle": "<0.8.1"
     },
     "suggest": {
         "league/flysystem-aws-s3-v3": "To use AwsS3AdapterFactory",

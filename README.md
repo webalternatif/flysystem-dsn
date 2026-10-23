@@ -74,6 +74,7 @@ $adapter = $factory->createAdapter($dsn);
 * There must be at least two DSN arguments for the failover DSN function.
 * The `name` parameter is used for the failover adapter's name in the failover bundle (used to identify adapters in Symfony commands).
 * For each inner DSN, you can specify a `time_shift` parameter (see [configuration section][111] of the failover bundle for more info). This parameter is removed from the inner DSN when it's built.
+* The optional `list_contents_strategy` parameter defines how the failover adapter lists contents (`disabled` or `first`, default: `disabled`, see [listing contents section][112] of the failover bundle for more info).
 
 ### Ftp
 
@@ -267,6 +268,7 @@ composer cs-check
 [11]: https://github.com/webalternatif/flysystem-failover-bundle
 [110]: https://packagist.org/packages/webalternatif/flysystem-failover-bundle
 [111]: https://github.com/webalternatif/flysystem-failover-bundle#configuration
+[112]: https://github.com/webalternatif/flysystem-failover-bundle#listing-contents
 [12]: https://github.com/thephpleague/flysystem-ftp
 [120]: https://packagist.org/packages/league/flysystem-ftp
 [121]: https://www.php.net/manual/en/function.ftp-ssl-connect.php

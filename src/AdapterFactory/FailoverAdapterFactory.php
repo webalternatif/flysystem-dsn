@@ -11,6 +11,7 @@ use Webf\Flysystem\Dsn\Exception\DsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 use Webf\FlysystemFailoverBundle\Flysystem\FailoverAdapter;
 use Webf\FlysystemFailoverBundle\Flysystem\InnerAdapter;
+use Webf\FlysystemFailoverBundle\Flysystem\ListContentsStrategy;
 use Webf\FlysystemFailoverBundle\MessageRepository\MessageRepositoryInterface;
 
 final readonly class FailoverAdapterFactory implements FlysystemAdapterFactoryInterface
@@ -43,6 +44,14 @@ final readonly class FailoverAdapterFactory implements FlysystemAdapterFactoryIn
             throw DsnParameterException::missingArgument(2, count($arguments), 'failover', $dsnString);
         }
 
+        $failoverOptions = [];
+        /** @var string|null $listContentsStrategy */
+        $listContentsStrategy = $dsn->getParameter('list_contents_strategy');
+        if (null !== $listContentsStrategy) {
+            $failoverOptions['list_contents_strategy'] = ListContentsStrategy::tryFrom($listContentsStrategy)
+                ?? throw DsnParameterException::invalidParameter(sprintf('must be one of "%s"', implode('", "', array_map(fn (ListContentsStrategy $strategy) => $strategy->value, ListContentsStrategy::cases()))), 'list_contents_strategy', $dsnString);
+        }
+
         $adapters = [];
         foreach ($arguments as $dsn) {
             $options = [];
@@ -63,7 +72,7 @@ final readonly class FailoverAdapterFactory implements FlysystemAdapterFactoryIn
             );
         }
 
-        return new FailoverAdapter($name, $adapters, $this->messageRepository);
+        return new FailoverAdapter($name, $adapters, $this->messageRepository, $failoverOptions);
     }
 
     #[\Override]
