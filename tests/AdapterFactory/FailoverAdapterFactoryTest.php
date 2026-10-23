@@ -13,6 +13,7 @@ use Webf\Flysystem\Dsn\Exception\DsnParameterException;
 use Webf\Flysystem\Dsn\Exception\UnsupportedDsnException;
 use Webf\FlysystemFailoverBundle\Flysystem\FailoverAdapter;
 use Webf\FlysystemFailoverBundle\Flysystem\InnerAdapter;
+use Webf\FlysystemFailoverBundle\Flysystem\ListContentsStrategy;
 use Webf\FlysystemFailoverBundle\MessageRepository\MessageRepositoryInterface;
 
 /**
@@ -69,6 +70,44 @@ class FailoverAdapterFactoryTest extends TestCase
         );
 
         $this->assertEquals($expectedAdapter, $adapter);
+    }
+
+    public function test_create_adapter_handles_list_contents_strategy_option(): void
+    {
+        $factory = new FailoverAdapterFactory(
+            new AdapterFactoryStub(),
+            $messageRepository = $this->createMock(
+                MessageRepositoryInterface::class
+            )
+        );
+        $adapter = $factory->createAdapter(
+            'failover(stub://inner1 stub://inner2)?name=name&list_contents_strategy=first'
+        );
+
+        $expectedAdapter = new FailoverAdapter(
+            'name',
+            [
+                new InnerAdapter(new AdapterStub('inner1')),
+                new InnerAdapter(new AdapterStub('inner2')),
+            ],
+            $messageRepository,
+            ['list_contents_strategy' => ListContentsStrategy::First]
+        );
+
+        $this->assertEquals($expectedAdapter, $adapter);
+    }
+
+    public function test_create_adapter_throws_exception_when_list_contents_strategy_is_invalid(): void
+    {
+        $factory = new FailoverAdapterFactory(
+            new AdapterFactoryStub(),
+            $this->createMock(MessageRepositoryInterface::class)
+        );
+
+        $this->expectException(DsnParameterException::class);
+        $this->expectExceptionMessage('must be one of "disabled", "first"');
+
+        $factory->createAdapter('failover(stub://inner1 stub://inner2)?name=name&list_contents_strategy=invalid');
     }
 
     public function test_create_adapter_throws_exception_when_name_parameter_is_missing(): void

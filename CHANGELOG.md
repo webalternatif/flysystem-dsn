@@ -1,3 +1,13 @@
+## v0.8.0 (unreleased)
+
+### 💥 Breaking changes
+
+* Add a conflict with `webalternatif/flysystem-failover-bundle` <0.8.1
+
+### ✨ New features
+
+* Add the `list_contents_strategy` parameter to `FailoverAdapterFactory`
+
 ## v0.7.1 (October 2, 2026)
 
 ### ✨ New features
