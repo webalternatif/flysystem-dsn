@@ -1,12 +1,12 @@
-## v0.8.0 (unreleased)
+## v0.8.0 (October 23, 2026)
 
 ### 💥 Breaking changes
 
-* Add a conflict with `webalternatif/flysystem-failover-bundle` <0.8.1
+* Add a conflict with `webalternatif/flysystem-failover-bundle` <0.8.1 ([#22](https://github.com/webalternatif/flysystem-dsn/pull/22))
 
 ### ✨ New features
 
-* Add the `list_contents_strategy` parameter to `FailoverAdapterFactory`
+* Add the `list_contents_strategy` parameter to `FailoverAdapterFactory` ([#22](https://github.com/webalternatif/flysystem-dsn/pull/22))
 
 ## v0.7.1 (October 2, 2026)
 
